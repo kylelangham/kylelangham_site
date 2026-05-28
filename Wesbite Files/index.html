@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyle Langham — Agentic AI for Pharmaceutical Manufacturing</title>
+  <meta name="description" content="Independent professional building agentic AI systems for pharmaceutical CMC operations. Working prototype, available for the right conversations.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kyle Langham — Agentic AI for Pharmaceutical Manufacturing">
+  <meta property="og:description" content="Independent professional building agentic AI systems for pharmaceutical CMC operations. Working prototype, available for the right conversations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kylelangham.com">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text-primary: #1A1A1A;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --accent: #0066CC;
+      --accent-hover: #00509E;
+      --border: #EAEAEA;
+      --scroll-line: #D0D0D0;
+      --content-width: 740px;
+      --content-width-wide: 960px;
+      --serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 17px;
+      line-height: 1.6;
+      font-weight: 400;
+      font-feature-settings: 'cv11', 'ss01';
+    }
+
+    main {
+      width: 100%;
+    }
+
+    section {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5.6vw, 60px);
+      font-weight: 700;
+      line-height: 1.07;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      max-width: 640px;
+      margin-bottom: 32px;
+    }
+
+    .hero .subhead {
+      font-size: 19px;
+      color: var(--text-secondary);
+      line-height: 1.62;
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+
+    .hero .subhead .editorial {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05em;
+      color: var(--text-primary);
+      letter-spacing: 0;
+    }
+
+    .hero-email {
+      font-size: 14px;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+    }
+
+    .hero-email a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .hero-email a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .scroll-indicator {
+      width: 1px;
+      height: 44px;
+      background: var(--scroll-line);
+      margin-top: 64px;
+    }
+
+    /* ---------- Demo (the centerpiece — most vertical room) ---------- */
+    .demo {
+      padding-top: 152px;
+      padding-bottom: 168px;
+    }
+
+    .demo-inner {
+      max-width: var(--content-width-wide);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: block;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .demo h2 {
+      font-size: clamp(28px, 4.2vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.18;
+      text-align: center;
+      max-width: var(--content-width);
+      margin: 0 auto 30px;
+    }
+
+    .demo-intro {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: var(--content-width);
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      margin-bottom: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #F5F5F5;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .demo-reflection {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: var(--content-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ---------- About (tighter, textual) ---------- */
+    .about {
+      padding-top: 96px;
+      padding-bottom: 64px;
+    }
+
+    .about-inner {
+      max-width: var(--content-width);
+      margin: 0 auto;
+    }
+
+    .about h2 {
+      font-size: clamp(28px, 4.2vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.18;
+      margin-bottom: 36px;
+      color: var(--text-primary);
+    }
+
+    .about p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .about p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .about a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ---------- Final CTA (compact, punctuating) ---------- */
+    .cta-final {
+      padding-top: 64px;
+      padding-bottom: 96px;
+    }
+
+    .cta-final-inner {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding-top: 64px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .cta-final p {
+      font-size: 18px;
+      color: var(--text-primary);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 1;
+      transition: background-color 0.15s ease;
+    }
+
+    .cta-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .cta-final-email {
+      margin-top: 22px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .cta-final-email a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .cta-final-email a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+    }
+
+    .footer-inner {
+      max-width: var(--content-width-wide);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .footer-divider {
+      color: var(--text-tertiary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 720px) {
+      body {
+        font-size: 16px;
+      }
+
+      section {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .hero {
+        padding-top: 80px;
+        padding-bottom: 64px;
+      }
+
+      .hero h1 {
+        margin-bottom: 24px;
+      }
+
+      .hero .subhead {
+        font-size: 17px;
+        margin-bottom: 32px;
+      }
+
+      .scroll-indicator {
+        margin-top: 48px;
+        height: 36px;
+      }
+
+      .demo {
+        padding-top: 104px;
+        padding-bottom: 112px;
+      }
+
+      .demo-intro {
+        font-size: 17px;
+        margin-bottom: 56px;
+      }
+
+      .video-wrap {
+        margin-bottom: 56px;
+      }
+
+      .about {
+        padding-top: 80px;
+        padding-bottom: 56px;
+      }
+
+      .about p {
+        font-size: 16px;
+      }
+
+      .cta-final {
+        padding-top: 56px;
+        padding-bottom: 80px;
+      }
+
+      .cta-final-inner {
+        padding-top: 56px;
+      }
+
+      .cta-primary {
+        display: block;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 15px 28px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <h1>Building agentic AI for pharmaceutical manufacturing.</h1>
+        <p class="subhead">
+          Biopharma CMC teams are behind on AI and most of what they&rsquo;ve been sold hasn&rsquo;t delivered. But agentic systems, built for the needs of CMC regulated workflows from the start, <span class="editorial">are a different thing</span>: report drafting, deviation management, tech transfer, manufacturing control. The 12-minute demo below shows one of these working on a real CMC workflow.
+        </p>
+        <p class="hero-email">
+          <a href="mailto:kyle.langham@gmail.com">kyle.langham@gmail.com</a>
+        </p>
+        <div class="scroll-indicator" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ============ DEMO ============ -->
+    <section class="demo" id="demo">
+      <div class="demo-inner">
+        <span class="eyebrow">Working Prototype</span>
+        <h2>Agentic CMC: AI in the Biopharma CMC Space</h2>
+        <p class="demo-intro">
+          What follows is a working prototype I built that demonstrates an agentic AI system handling a real CMC workflow &mdash; tech transfer report drafting &mdash; using realistic but synthetic data designed to be recognizable to operators in the space. The same architecture extends naturally to batch deviation analysis, CAPA recommendation support, and other report-heavy regulated processes.
+        </p>
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/[YOUTUBE_VIDEO_ID_PLACEHOLDER]?rel=0&modestbranding=1"
+            title="Agentic CMC working prototype demonstration"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"></iframe>
+        </div>
+        <p class="demo-reflection">
+          The demo represents what&rsquo;s possible when agentic systems are designed for regulated workflows from the start &mdash; not retrofitted from general-purpose AI tools. The interesting work in CMC AI isn&rsquo;t the model layer; it&rsquo;s the architecture that connects existing systems of record to agentic reasoning in ways that respect how regulated pharma actually operates.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <h2>About</h2>
+        <p>
+          I prefer to execute, not just strategize and I genuinely like solving problems for people, not just diagnosing them. What I&rsquo;m focused on now is how proper data systems and agentic AI can rewrite how work actually gets done in CMC organizations: faster reports, cleaner deviation management, real leadership visibility, AI working as a partner rather than a bolt-on.
+        </p>
+        <p>
+          My work draws on twenty-plus years in pharma data leadership across HGS, GSK, and Novavax, and covers GxP/GMP manufacturing data, data governance, regulated systems architecture, and the cross-functional coordination problems that make pharma operations distinct from other industries. A non-pharma detour into a blockchain company in 2022 reshaped how I think about what data-forward operations look like and that drives a lot of what I&rsquo;m building now.
+        </p>
+        <p>
+          I&rsquo;m available for the right conversations whether that&rsquo;s an executive role at a company serious about AI in regulated operations, a consulting engagement where the problem genuinely fits, or peer conversations with people working on adjacent problems.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="cta-final" id="contact">
+      <div class="cta-final-inner">
+        <p>If the work above resonates, the cleanest way to start a conversation is below.</p>
+        <a class="cta-primary" href="https://calendar.app.google/fDa59DEuFuwiU2AQA">Book a 45-minute conversation</a>
+        <p class="cta-final-email">
+          or email <a href="mailto:kyle.langham@gmail.com">kyle.langham@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span>Kyle Langham</span>
+        <span class="footer-divider">·</span>
+        <span>&copy; 2026</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/kyle-langham/" rel="noopener">LinkedIn</a>
+        <a href="mailto:kyle.langham@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
