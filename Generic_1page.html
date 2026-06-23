@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kyle Langham Consulting — Enterprise Data and AI Services</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.5in 0.7in 0.45in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;}
+  .eyebrow{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:9px;}
+  .title{font-size:31px;line-height:1.07;font-weight:700;letter-spacing:-.022em;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;padding-top:4px;}
+  .logo .mark{width:27px;height:27px;flex:none;}
+  .logo .wm .n{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+  /* stat strip */
+  .stats{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .stat{padding:13px 4px 13px 0;display:flex;flex-direction:column;min-height:58px;}
+  .stat + .stat{padding-left:26px;border-left:1px solid var(--line);}
+  .stat .num{font-size:22px;font-weight:700;letter-spacing:-.02em;white-space:nowrap;}
+  .stat.firms .num{font-size:16.5px;}
+  .stat .num span{color:var(--accent);}
+  .stat .cap{font-size:10.5px;color:var(--muted);margin-top:auto;padding-top:8px;letter-spacing:.01em;}
+
+  /* split */
+  .split{display:grid;grid-template-columns:1.55fr 1fr;gap:34px;padding-top:18px;}
+  .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px;}
+  p{font-size:11.7px;color:var(--ink-2);}
+  .lead{font-size:12.4px;color:var(--ink-2);line-height:1.6;}
+  .lead + .lead{margin-top:9px;}
+  .results{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 19px;display:flex;flex-direction:column;justify-content:flex-start;}
+  .results .label{color:var(--accent);}
+  .results .caps{list-style:none;display:flex;flex-direction:column;gap:7px;}
+  .results .caps li{display:flex;flex-direction:column;}
+  .results .caps .cat{font-size:11.8px;font-weight:650;color:var(--ink);letter-spacing:-.005em;}
+  .results .caps .sub{font-size:10.2px;color:var(--muted);line-height:1.42;margin-top:2px;}
+
+  /* domain tags */
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+  .tag{font-size:10px;letter-spacing:.02em;color:var(--ink-2);background:#F1F1F4;border:1px solid var(--line-2);border-radius:100px;padding:4px 11px;}
+
+  /* service areas */
+  .section{padding-top:14px;}
+  .areas{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;padding-top:12px;}
+  .area{display:flex;gap:14px;align-items:flex-start;padding:13px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;}
+  .area .ico{width:38px;height:38px;flex:none;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;}
+  .area .ico svg{width:21px;height:21px;stroke:var(--accent);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .area h3{font-size:13.5px;font-weight:650;letter-spacing:-.01em;margin-bottom:4px;}
+  .area p{font-size:11px;color:var(--muted);line-height:1.46;}
+
+  /* engagement */
+  .engage{margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:28px;background:var(--ink);color:#fff;border-radius:16px;padding:16px 22px 16px 26px;}
+  .engage .label{color:rgba(255,255,255,.55);margin-bottom:10px;}
+  .eleft{flex:1;min-width:0;}
+  .tiers{display:flex;flex-direction:column;}
+  .tier{display:flex;justify-content:space-between;align-items:baseline;gap:28px;max-width:3.4in;padding:9px 0;border-top:1px solid rgba(255,255,255,.12);}
+  .tier:first-child{border-top:none;padding-top:0;}
+  .tier:last-child{padding-bottom:0;}
+  .tname{font-size:13px;font-weight:600;letter-spacing:-.005em;}
+  .tprice{font-size:14.5px;font-weight:700;letter-spacing:-.015em;white-space:nowrap;}
+  .tprice small{font-size:10px;font-weight:500;color:rgba(255,255,255,.6);}
+  .cta{flex:none;display:flex;align-items:center;gap:14px;background:var(--accent);color:#fff;text-decoration:none;border-radius:14px;padding:10px 12px 10px 18px;}
+  .cta-txt{display:flex;flex-direction:column;text-align:right;}
+  .cta-k{font-size:13px;font-weight:650;letter-spacing:-.01em;}
+  .cta-a{font-size:9.5px;color:rgba(255,255,255,.78);margin-top:3px;letter-spacing:.01em;}
+  .cta .qr{width:50px;height:50px;border-radius:7px;background:#fff;padding:3px;display:block;}
+
+  /* footer */
+  .spacer{flex:1;}
+  .foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .foot .contact{display:flex;gap:22px;font-size:10.5px;color:var(--muted);align-items:center;}
+  .foot .contact a{color:var(--ink-2);text-decoration:none;}
+  .foot .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+
+  @media print{ @page{size:Letter;margin:0;} html,body{background:#fff;} .page{margin:0;box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Strategy and Implementation Services</div>
+      <h1 class="title">Enterprise Data<br>and AI Services</h1>
+    </div>
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num"><span>20+</span> yrs</div><div class="cap">Data Strategy &amp; Delivery, enterprise scale</div></div>
+    <div class="stat firms"><div class="num">HGS · GSK · Novavax</div><div class="cap">Highly regulated, enterprise environments</div></div>
+    <div class="stat firms"><div class="num">Operations · Supply Chain · IT</div><div class="cap">Across 5 functional domains</div></div>
+  </div>
+
+  <div class="split">
+    <section>
+      <div class="label">Background</div>
+      <p class="lead">Kyle Langham has ~20 years of experience in data strategy, management and implementation, with leadership work spanning operations, supply chain, IT, PMO and analytics across enterprise organizations including HGS, GSK and Novavax. Areas of delivery include business intelligence (data pipelines and analytics to support business functions) and compliance (data integrity, audit readiness, validation, continued process verification, workflow and system automation, data quality) — built in one of the most regulated industries there is, and directly transferable to yours.</p>
+      <p class="lead">Recently, Kyle has become a leading strategist and implementation agent for AI in the enterprise, with multiple working demos of agentic AI in real operational workflows — for example, driving a deviation investigation down to 10 minutes — regularly posted to his LinkedIn.</p>
+    </section>
+    <section class="results">
+      <div class="label">Value Drivers</div>
+      <ul class="caps">
+        <li><span class="cat">Compliance Programs</span><span class="sub">Audit-ready data integrity · efficient, accurate verification in regulated environments</span></li>
+        <li><span class="cat">Data Integration / Automation</span><span class="sub">Find any data in seconds, not hours</span></li>
+        <li><span class="cat">Governance</span><span class="sub">Single source of truth across functions</span></li>
+        <li><span class="cat">Agentic AI Strategy / Implementation</span><span class="sub">AI efficiency in all business workflows — e.g. 10-minute deviation investigation</span></li>
+        <li><span class="cat">Business Intelligence</span><span class="sub">Per-user dashboards for business overview</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="section">
+    <div class="label">Service Areas</div>
+    <div class="areas">
+      <div class="area">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/><circle cx="19" cy="19" r="2.2"/></svg></div>
+        <div><h3>Data Strategy</h3><p>Data system mapping, governance, gap analysis, roadmap development</p></div>
+      </div>
+      <div class="area">
+        <div class="ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.6"/><path d="M5 6v12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V6"/><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg></div>
+        <div><h3>Data Execution</h3><p>Master data management, data integration, data automation</p></div>
+      </div>
+      <div class="area">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+        <div><h3>Regulatory Compliance</h3><p>Data integrity, audit readiness, validation support, process verification</p></div>
+      </div>
+      <div class="area">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="1.6"/><circle cx="19" cy="7" r="1.6"/><circle cx="6" cy="19" r="1.6"/><circle cx="18" cy="18" r="1.6"/><path d="M6.4 7.2 9.6 10.4M17.6 8.2 14.5 10.6M7.2 17.8 9.8 14.2M16.8 16.8 14.4 14"/></svg></div>
+        <div><h3>AI Strategy &amp; Execution</h3><p>Agentic workflow automation, data aggregation/reasoning, workforce adoption</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="engage">
+    <div class="eleft">
+      <div class="label">Engagement Model</div>
+      <div class="tiers">
+        <div class="tier"><span class="tname">Data Diagnostic</span><span class="tprice">$8,000</span></div>
+        <div class="tier"><span class="tname">Fractional Service Retainer</span><span class="tprice">from $12,000<small>/mo</small></span></div>
+      </div>
+    </div>
+    <a class="cta" href="https://calendar.app.google/UYtFLWUkQTvVpbHb7">
+      <div class="cta-txt"><span class="cta-k">Book a 30-minute call</span><span class="cta-a">Tap or scan to schedule →</span></div>
+      <img class="qr" src="data:image/png;base64,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" alt="Booking QR code">
+    </a>
+  </section>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <span>(240) 848-2562</span><span class="dot"></span>
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
