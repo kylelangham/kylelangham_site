@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Data Diagnostic — Scope</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+    --stop:#B23B00; --stop-soft:#FCEEE7; --stop-line:#F0C9B5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.5in 0.7in 0.45in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:9px;}
+  .title{font-size:29px;line-height:1.07;font-weight:700;letter-spacing:-.022em;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;padding-top:4px;}
+  .logo .mark{width:27px;height:27px;flex:none;}
+  .logo .wm .n{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+  /* the frame sentence */
+  .frame{padding:16px 0 15px;border-bottom:1px solid var(--line);}
+  .frame .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:9px;}
+  .frame p{font-size:15px;line-height:1.5;color:var(--ink);font-weight:500;letter-spacing:-.01em;}
+  .frame .var{color:var(--accent);border-bottom:1.5px solid var(--accent-soft);padding-bottom:1px;}
+
+  /* two columns */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding-top:16px;}
+  .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:11px;}
+
+  /* what you get */
+  .gets{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .gets li{display:flex;gap:11px;align-items:flex-start;}
+  .gets .n{flex:none;width:19px;height:19px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .gets .cat{font-size:12px;font-weight:650;color:var(--ink);letter-spacing:-.005em;}
+  .gets .sub{font-size:10.4px;color:var(--muted);line-height:1.4;margin-top:1px;}
+
+  /* what i do */
+  .doers{list-style:none;display:flex;flex-direction:column;gap:11px;}
+  .doers li{display:flex;gap:12px;align-items:flex-start;}
+  .doers .ico{width:34px;height:34px;flex:none;border-radius:9px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
+  .doers .ico svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .doers h3{font-size:12.5px;font-weight:650;letter-spacing:-.01em;margin-bottom:2px;}
+  .doers p{font-size:10.6px;color:var(--muted);line-height:1.45;}
+
+  /* fixed terms strip */
+  .terms{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:18px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
+  .term{padding:13px 16px;}
+  .term + .term{border-left:1px solid var(--line);}
+  .term .k{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+  .term .v{font-size:13.5px;font-weight:700;letter-spacing:-.015em;color:var(--ink);}
+  .term .v small{display:block;font-size:10px;font-weight:400;color:var(--muted);margin-top:3px;letter-spacing:0;}
+
+  /* bottom row: scope dials + not-this */
+  .brow{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding-top:18px;}
+  .dials .label{color:var(--accent);}
+  .dial{display:flex;gap:11px;align-items:flex-start;margin-bottom:10px;}
+  .dial .d{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;}
+  .dial .d svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+  .dial .nm{font-size:11.8px;font-weight:650;letter-spacing:-.005em;}
+  .dial .ds{font-size:10.4px;color:var(--muted);line-height:1.42;margin-top:1px;}
+
+  .not{background:var(--stop-soft);border:1px solid var(--stop-line);border-radius:14px;padding:14px 17px;}
+  .not .label{color:var(--stop);margin-bottom:9px;}
+  .not ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+  .not li{font-size:10.8px;color:#7A4A30;line-height:1.4;padding-left:16px;position:relative;}
+  .not li::before{content:"✕";position:absolute;left:0;top:0;color:var(--stop);font-size:9px;font-weight:700;}
+  .not li b{color:var(--stop);font-weight:650;}
+
+  /* footer */
+  .spacer{flex:1;}
+  .foot{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .foot .contact{display:flex;gap:20px;font-size:10.5px;color:var(--muted);align-items:center;}
+  .foot .contact a{color:var(--ink-2);text-decoration:none;}
+  .foot .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+
+  @media print{ @page{size:Letter;margin:0;} html,body{background:#fff;} .page{margin:0;box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Fixed-Scope Engagement</div>
+      <h1 class="title">The Data Diagnostic</h1>
+    </div>
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+  </header>
+
+  <section class="frame">
+    <div class="label">What it is</div>
+    <p>A fixed-scope assessment of whether your data and systems are ready for <span class="var">the specific business initiative you're about to fund</span>. Delivered as six concrete artifacts and a costed roadmap, for one flat fee agreed before we start.</p>
+  </section>
+
+  <div class="split">
+    <section>
+      <div class="label">What you get</div>
+      <ul class="gets">
+        <li><span class="n">1</span><div><div class="cat">System &amp; data-flow inventory</div><div class="sub">Every system, what data lives where, on what medium (spreadsheet, SaaS, or validated system)</div></div></li>
+        <li><span class="n">2</span><div><div class="cat">Data-quality scorecard</div><div class="sub">Rated across completeness, accuracy, consistency, timeliness, and integrity</div></div></li>
+        <li><span class="n">3</span><div><div class="cat">Maturity assessment</div><div class="sub">Where you are today versus where your initiative requires you to be</div></div></li>
+        <li><span class="n">4</span><div><div class="cat">Gap &amp; risk register</div><div class="sub">Every gap scored by severity and effort for sequencing</div></div></li>
+        <li><span class="n">5</span><div><div class="cat">Written assessment report</div><div class="sub">Findings, evidence, and the reasoning behind each</div></div></li>
+        <li><span class="n">6</span><div><div class="cat">Costed roadmap</div><div class="sub">Priced with your named initiative as the destination</div></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="label">What I do to produce it</div>
+      <ul class="doers">
+        <li>
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11"/></svg></div>
+          <div><h3>Inventory</h3><p>Map the systems and analyze data ingestion limitations.</p></div>
+        </li>
+        <li>
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg></div>
+          <div><h3>Quality</h3><p>Profile how good that data actually is against the standard integrity dimensions.</p></div>
+        </li>
+        <li>
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 6h6M6 8v6a4 4 0 0 0 4 4h6"/></svg></div>
+          <div><h3>Flow &amp; Ownership</h3><p>Trace how data moves across handoffs and establish who owns and controls each dataset.</p></div>
+        </li>
+        <li>
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+          <div><h3>Readiness verdict</h3><p>Measure the gap between today and your named target state and price the path to close it.</p></div>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="terms">
+    <div class="term"><div class="k">Scope</div><div class="v">Fixed<small>Set before we start, in writing</small></div></div>
+    <div class="term"><div class="k">Fee</div><div class="v">One flat price<small>No hourly meter, no overruns</small></div></div>
+    <div class="term"><div class="k">Timeline</div><div class="v">3–4 weeks<small>From kickoff to readout</small></div></div>
+  </div>
+
+  <div class="brow">
+    <section class="dials">
+      <div class="label">How scope is set</div>
+      <div class="dial">
+        <div class="d"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="1"/><rect x="3" y="14" width="18" height="5" rx="1"/><circle cx="8" cy="6.5" r="1"/><circle cx="16" cy="16.5" r="1"/></svg></div>
+        <div><div class="nm">Systems in scope</div><div class="ds">We agree the list of systems up front. That list sets the boundary and prevents scope creep.</div></div>
+      </div>
+      <div class="dial">
+        <div class="d"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+        <div><div class="nm">The initiative you name</div><div class="ds">The target state you're funding (an AI/agentic build, a system migration, a transfer, ...).  This sets what "ready" means and where the assessment goes deep.</div></div>
+      </div>
+      <p style="font-size:10.2px;color:var(--muted);line-height:1.45;margin-top:11px;">The same rigorous data first principles will be applied regardless of scope and initiative.</p>
+    </section>
+
+    <section class="not">
+      <div class="label">What it is not</div>
+      <ul>
+        <li>Not a <b>software purchase</b> or a tool implementation</li>
+        <li>Not a <b>vendor pitch</b>: findings are system-agnostic and I sell you nothing downstream you don't choose</li>
+        <li>Not <b>open-ended</b> consulting: fixed scope, fixed fee, fixed timeline</li>
+        <li>Not a <b>re-litigation</b> of decisions already made: it de-risks the path you've chosen</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a><span class="dot"></span>
+      <a href="https://calendar.app.google/UYtFLWUkQTvVpbHb7">Book a call →</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
