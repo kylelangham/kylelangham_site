@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Run-to-run process comparison for PD · Kyle Langham Consulting</title>
+<meta name="description" content="An agent that aligns process parameter traces across runs on process time, joins them to quality attributes, and shows which parameters moved with which outcomes.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================
+     The nav CTA on every function page points at the reply card, not the
+     calendar. This reader arrived from an outbound email and is still
+     deciding whether I am credible. One CTA per page.
+================================================================= -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Kyle Langham Consulting home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <span><span class="n">Kyle Langham</span><span class="t">Consulting</span></span>
+    </a>
+
+    <button class="navtoggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu">
+      <svg class="ico-bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="ico-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="navlinks" id="navlinks">
+      <div class="navgroup">
+        <a class="navgroup-label" href="index.html#functions">Functions</a>
+        <div class="navmenu">
+          <a href="manufacturing.html">Manufacturing</a>
+          <a href="quality-assurance.html">Quality Assurance</a>
+          <a href="quality-control.html">Quality Control</a>
+          <a href="analytical-development.html">Analytical Development</a>
+          <a href="process-development.html">Process Development</a>
+          <a href="tech-transfer.html">Tech Transfer</a>
+          <a href="regulatory-affairs.html">Regulatory Affairs</a>
+        </div>
+      </div>
+      <a href="diagnostic.html">Diagnostic</a>
+      <a href="for-it.html">For IT</a>
+      <a href="about.html">About</a>
+      <a class="navcta" href="#reply">Send me a workflow</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============================ PAGE HEAD ============================ -->
+<header class="phead">
+  <div class="wrap">
+    <div class="eyebrow">Process Development</div>
+    <h1>Compare runs and see which parameter moved with which attribute</h1>
+    <p class="standfirst">An agent that pulls every parameter trace and every offline result across a campaign, aligns the runs on process time, and shows where the runs actually diverged and what moved with it.</p>
+  </div>
+</header>
+
+<!-- ==================== 1. THE RECURRING PAIN ==================== -->
+<section class="block" style="padding-top:30px;">
+  <div class="wrap">
+    <div class="eyebrow">What this looks like today</div>
+    <h2 class="lede">Run 4 is down eighteen percent and everyone has a theory.</h2>
+    <div class="prose" style="margin-top:18px;">
+      <p>The campaign is four engineering runs in and the titer on run 4 is down eighteen percent against run 2. In the debrief there are five plausible explanations and no way to test any of them quickly. The seed train was a day longer. The feed started at a different cell density. There was a pH excursion around hour 60 that was within range and therefore never flagged. A different lot of media was used.</p>
+      <p>Checking any one of those means going to the historian for the parameter traces, to the LIMS for the offline assays and the release attributes, and to the batch record for what the operators actually did rather than what the protocol said. Then aligning four runs that started at different clock times onto a common process time axis, in Excel, by hand.</p>
+      <p>That is roughly a week per comparison, which means it happens for the runs that fail dramatically and not for the ones that drift quietly. The comparisons you skip are where the process knowledge was.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. THE DEMO ==================== -->
+<section class="block band">
+  <div class="wrap">
+    <div class="demo">
+      <div class="eyebrow">The demo</div>
+      <h2 class="lede" style="max-width:22em;">Four runs, aligned on process time, parameters against attributes.</h2>
+
+      <div class="video-wrap" style="margin-top:22px;">
+
+        <iframe src="https://www.youtube-nocookie.com/embed/-uGrkQIXjKk?rel=0"
+                title="Agent comparing process runs across the historian, MES and LIMS"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+
+      </div>
+      <!-- ─── END VIDEO SLOT ──────────────────────────────────────────── -->
+
+      <p class="demo-cap">The agent is given a set of run identifiers. It pulls every continuous parameter trace and every offline and release result for those runs, aligns them on elapsed process time rather than clock time, then reports where the runs materially diverged and which quality attributes moved alongside each divergence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. UNDER THE HOOD ==================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">Under the hood</div>
+    <h2 class="lede">Alignment first, because everything downstream depends on it.</h2>
+    <div class="prose" style="margin-top:18px;">
+      <p>Most manual run comparisons go wrong at the alignment step, not the analysis step. Runs inoculated at different times of day, holds of different lengths and different seed train durations mean a straight clock-time overlay compares hour 40 of one run against hour 52 of another. The agent does the alignment as a deterministic transform before anything else happens.</p>
+    </div>
+    <ul class="doclist" style="margin-top:20px;max-width:var(--readw);">
+          <li><b>Historian and MES</b> for the continuous traces across every run in the set: pH, dissolved oxygen, temperature, agitation, feed rate, gas flow and vessel weight, at native resolution.</li>
+          <li><b>Process-time alignment</b> anchored on inoculation and on named phase transitions taken from the batch record, so equivalent points in the process are actually compared to each other.</li>
+          <li><b>LIMS</b> for the offline profile and the release attributes per run: viable cell density, viability, metabolites, titer, and the product quality attributes including aggregate, charge variants and glycosylation where they exist.</li>
+          <li><b>Divergence detection</b> as a deterministic calculation over the aligned traces, identifying where and when runs separate materially rather than trivially, with the magnitude and duration of each excursion quantified.</li>
+          <li><b>Parameter against attribute</b>, reported as association with the strength shown and the underlying values cited. Four runs is four data points, and the output says so.</li>
+    </ul>
+    <p class="pnote">This is the workflow where it matters most to be blunt: the agent reports association, not causation. It will tell you that the pH excursion at hour 60 coincides with the runs that lost titer, and it will show you every value behind that statement. Deciding whether that is mechanism or coincidence is process science, and it stays with your scientist.</p>
+  </div>
+</section>
+
+<!-- ==================== 4. WHERE THE TIME GOES ==================== -->
+<section class="block band">
+  <div class="wrap">
+    <div class="eyebrow">Where the time goes</div>
+    <h2 class="lede">Cheap enough to run on the boring comparisons too.</h2>
+
+    <div class="timegrid">
+      <div class="tcol now">
+        <div class="k">Today</div>
+        <div class="t">1<small> week</small></div>
+        <ul>
+          <li>Per comparison, mostly spent exporting traces and aligning them by hand</li>
+          <li>Only done for runs that fail visibly, not for runs that drift</li>
+          <li>Alignment done on clock time because process-time alignment is too tedious</li>
+          <li>The resulting workbook is not reusable for the next campaign</li>
+        </ul>
+      </div>
+      <div class="tcol next">
+        <div class="k">With an agent</div>
+        <div class="t">10<small> min</small></div>
+        <ul>
+          <li>Every run in the campaign aligned on process time and compared in one pass</li>
+          <li>Divergences quantified rather than eyeballed off an overlay</li>
+          <li>Worth running on every comparison, including the ones nobody would fund a week for</li>
+          <li>A process scientist judges mechanism. The agent does not claim causation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="honest">These figures come from my demo environment running on synthetic CMC data. They are not client results. The "today" column is what I watched teams actually do across my career; the "with an agent" column is measured on the demo, against a data model built to be representative rather than against your systems.</p>
+  </div>
+</section>
+
+<!-- ==================== 5. WHAT IT TAKES ==================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">What it takes to get there</div>
+    <h2 class="lede">Historian access is usually the gate.</h2>
+    <div class="prose" style="margin-top:18px;">
+      <p>Parameter traces are the richest data in the building and often the hardest to get at programmatically. Historian access is frequently read-only through a reporting layer that downsamples, phase transitions live in the executed batch record as operator entries rather than as tags, and the join between a run identifier in the historian and a lot number in the LIMS is sometimes a manual mapping in a spreadsheet.</p>
+      <p>The Data Diagnostic establishes what is actually reachable and at what resolution, and prices the path from there. Two to three weeks, fixed fee, before you commit to a build that depends on it.</p>
+    </div>
+    <p style="margin-top:18px;"><a href="diagnostic.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;font-size:15px;">The Data Diagnostic, including the price <span aria-hidden="true">&rarr;</span></a></p>
+    <p class="pnote">Your IT and quality systems group will want the architecture, the read and write paths, the Part 11 position and the validation approach. That is all written down on the <a href="for-it.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;">governance and validation page</a>, in a form you can forward or print.</p>
+  </div>
+</section>
+
+<!-- ==================== 6. CTA ==================== -->
+<section class="block" style="padding-top:8px;">
+  <div class="wrap">
+
+    <div class="reply" id="reply">
+      <div class="eyebrow">Try this on your own workflow</div>
+      <h2>Send me a workflow.</h2>
+      <p>Tell me the process that eats your team's week. I'll record an agent running it on your data model and send it back. No call required.</p>
+      <a class="mail" href="mailto:kyle@kylelangham.com?subject=Process%20development%20workflow">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>
+        kyle@kylelangham.com
+      </a>
+    </div>
+
+    <!-- quiet secondary route, deliberately not styled as a button -->
+    <p class="quiet"><a href="https://calendar.app.google/UYtFLWUkQTvVpbHb7">Would rather talk it through? 30 minutes on your workflow, no pitch.</a></p>
+
+    <div class="also">
+      <div class="k">Other functions</div>
+      <ul>
+        <li><a href="manufacturing.html">Manufacturing</a></li>
+        <li><a href="quality-assurance.html">Quality Assurance</a></li>
+        <li><a href="quality-control.html">Quality Control</a></li>
+        <li><a href="analytical-development.html">Analytical Development</a></li>
+        <li><a href="tech-transfer.html">Tech Transfer</a></li>
+        <li><a href="regulatory-affairs.html">Regulatory Affairs</a></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Kyle Langham Consulting home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <span><span class="n">Kyle Langham</span><span class="t">Consulting</span></span>
+    </a>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a><span class="dot"></span>
+      <a href="https://www.linkedin.com/in/kylelangham/">LinkedIn</a><span class="dot"></span>
+      <a href="https://intelligence-layer.com">The Intelligence Layer</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Governance, security and validation · Kyle Langham Consulting</title>
+<meta name="description" content="Architecture, data handling, 21 CFR Part 11 and ALCOA+, validation approach, model governance, scope boundaries and access requirements for agentic AI in a GxP environment.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================
+     Note: the nav CTA on this page is the PDF download, not the calendar.
+     This reader is assembling evidence for an internal meeting.
+     There is deliberately no calendar link anywhere on this page.
+================================================================= -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Kyle Langham Consulting home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <span><span class="n">Kyle Langham</span><span class="t">Consulting</span></span>
+    </a>
+
+    <button class="navtoggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu">
+      <svg class="ico-bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="ico-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="navlinks" id="navlinks">
+      <div class="navgroup">
+        <a class="navgroup-label" href="index.html#functions">Functions</a>
+        <div class="navmenu">
+          <a href="manufacturing.html">Manufacturing</a>
+          <a href="quality-assurance.html">Quality Assurance</a>
+          <a href="quality-control.html">Quality Control</a>
+          <a href="analytical-development.html">Analytical Development</a>
+          <a href="process-development.html">Process Development</a>
+          <a href="tech-transfer.html">Tech Transfer</a>
+          <a href="regulatory-affairs.html">Regulatory Affairs</a>
+        </div>
+      </div>
+      <a href="diagnostic.html">Diagnostic</a>
+      <a href="for-it.html">For IT</a>
+      <a href="about.html">About</a>
+      <a class="navcta" href="#download" data-print>Download as PDF</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- printed letterhead: hidden on screen, appears in the PDF -->
+<div class="printonly print-head">
+  <div class="logo">
+    <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+      <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+      <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+    </svg>
+    <div>
+      <div class="n">Kyle Langham</div>
+      <div class="t">Consulting</div>
+    </div>
+  </div>
+  <div class="meta">
+    Governance, security and validation<br>
+    kyle@kylelangham.com &middot; (240) 848-2562<br>
+    kylelangham.com
+  </div>
+</div>
+
+<!-- ============================ PAGE HEAD ============================ -->
+<header class="phead">
+  <div class="wrap">
+    <div class="eyebrow">For IT and quality systems</div>
+    <h1>Governance, security and validation</h1>
+    <p class="standfirst">This page is written for the people who have to clear this before it happens: IT, information security, quality systems, and CSV. It documents how the agentic AI system is built, what it touches, what it cannot touch, and how it gets qualified. It is meant to be forwarded, printed and read without me in the room.</p>
+
+    <div class="toc">
+      <div class="k">Contents</div>
+      <ol>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#data-handling">Data handling</a></li>
+        <li><a href="#part-11">21 CFR Part 11 and ALCOA+</a></li>
+        <li><a href="#validation">Validation approach</a></li>
+        <li><a href="#model-governance">Model governance</a></li>
+        <li><a href="#boundaries">What I don't do</a></li>
+        <li><a href="#access">Access required</a></li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<section class="block" style="padding-top:8px;">
+  <div class="wrap doc">
+
+    <!-- ==================== 1. ARCHITECTURE ==================== -->
+    <article class="docsec" id="architecture">
+      <div class="num">01</div>
+      <h2>Architecture</h2>
+
+      <p>The system has three parts: a <b>retrieval layer</b> that indexes and queries your data, an <b>agent runtime</b> that plans a workflow and calls tools, and a <b>model endpoint</b> that does the language work. The first two always run inside your environment. The third is the only component where a deployment decision has to be made.</p>
+
+      <h3>Where each component runs</h3>
+      <div class="tablewrap">
+        <table class="facts">
+          <thead>
+            <tr><th>Component</th><th>Runs where</th><th>Holds your data</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Retrieval index</td><td>Your cloud tenant or on-premise, in your region</td><td>Possibly, depending on your data architecture</td></tr>
+            <tr><td>Agent runtime</td><td>Container in your subscription or account</td><td>In memory during a session only</td></tr>
+            <tr><td>Tool connectors</td><td>Your network, behind your firewall</td><td>No, they pass through</td></tr>
+            <tr><td>Session and audit log</td><td>Your storage, your retention policy</td><td>Yes</td></tr>
+            <tr><td>Model endpoint</td><td>Your choice of the three patterns below</td><td>No, see below</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Three deployment patterns</h3>
+      <ul class="doclist">
+        <li><b>Fully in-tenant.</b> The model endpoint is one you already own: Azure OpenAI in your subscription, Amazon Bedrock in your account, or Google Vertex in your project. No data crosses your network boundary at any point in a session. This is the default I propose, and it is the one that answers most security review questions before they are asked.</li>
+        <li><b>In-tenant runtime, vendor model API.</b> Retrieval and orchestration stay in your environment; prompt content goes to a model provider over TLS under a zero-retention, no-training agreement. Faster to stand up. Requires your security team to accept a named third-party processor, so it needs a real decision rather than a default.</li>
+        <li><b>Self-hosted open-weight model.</b> For environments where no third-party inference is acceptable at all. Runs entirely on your infrastructure. Capability is lower than a frontier model and I will tell you honestly where that shows up in a given workflow rather than pretending the trade-off doesn't exist.</li>
+      </ul>
+
+      <p>Data residency follows the tenant. If your environment is in the EU, the index, the logs and the inference all stay in the EU. Nothing in the design requires a US region.</p>
+
+      <h3>Who is on my side of the engagement</h3>
+      <p>One person. I have no subcontractors, no offshore development team and no bench. There is no second party for you to vet, no staff rotation, and no one else who ever holds your credentials or your data.</p>
+    </article>
+
+    <!-- ==================== 2. DATA HANDLING ==================== -->
+    <article class="docsec" id="data-handling">
+      <div class="num">02</div>
+      <h2>Data handling</h2>
+
+      <p><b>The agent is read-only by default.</b> It has no write path into any validated system. That is a design position, not a configuration setting someone can flip during a sprint. Where write capability is ever discussed, it is a separate, explicitly scoped decision with its own risk assessment, and it is never part of a Data Diagnostic.</p>
+
+      <div class="tablewrap">
+        <table class="facts">
+          <thead>
+            <tr><th>System</th><th>Read</th><th>Write</th><th>How</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>LIMS</td><td class="yes">Yes</td><td class="no">No</td><td>Read-only service account or existing reporting views</td></tr>
+            <tr><td>MES</td><td class="yes">Yes</td><td class="no">No</td><td>Read-only service account or historian query</td></tr>
+            <tr><td>QMS</td><td class="yes">Yes</td><td class="no">No</td><td>Read-only service account or export</td></tr>
+            <tr><td>ERP</td><td class="yes">Yes</td><td class="no">No</td><td>Read-only view on the relevant tables</td></tr>
+            <tr><td>Document stores</td><td class="yes">Yes</td><td class="no">No</td><td>Read-only against SharePoint, Veeva or file shares</td></tr>
+            <tr><td>Agent output store</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Drafts and analysis packets only, outside every validated system</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Entitlement inheritance</h3>
+      <p>The agent runs under the entitlements of the human who invoked it, not under a privileged identity of its own. If a process engineer cannot open a given batch record in the MES today, the agent cannot retrieve that record on their behalf either. This matters more than it first appears: it means introducing the agent does not create a new path around your existing access controls, and it means your current entitlement reviews continue to govern what the agent can see.</p>
+
+      <h3>What the output actually is</h3>
+      <p>The agent produces drafts and analysis: an investigation packet, a release readiness summary, a stability projection, a draft Module 3 section. These are working documents. They are not GxP records, they are not the system of record, and they carry no signature. They become records only when a qualified human reviews the content and enters it into the validated system under that system's existing controls.</p>
+
+      <h3>Retention and destruction</h3>
+      <p>Session logs and the retrieval index live in your storage under your retention policy. At the end of an engagement, any working copy on my side is destroyed and I confirm that in writing. During an engagement I prefer to work against a validation or UAT instance rather than production wherever the data supports it.</p>
+    </article>
+
+    <!-- ==================== 3. PART 11 / ALCOA+ ==================== -->
+    <article class="docsec" id="part-11">
+      <div class="num">03</div>
+      <h2>21 CFR Part 11 and ALCOA+</h2>
+
+      <p>The Part 11 position rests on one distinction, so it is worth stating before the detail: <b>the agent does not create, modify, sign or delete electronic records in a validated system.</b> Your LIMS, MES, QMS and ERP remain the record of authority and remain governed by the Part 11 controls they already have. The agent reads from them and produces analysis for a human. Part 11 applies to the systems holding the records; the controls below describe how the agent layer preserves record integrity rather than undermining it.</p>
+
+      <div class="tablewrap">
+        <table class="facts">
+          <thead>
+            <tr><th>Attribute</th><th>How it is preserved</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Attributable</td><td>Every session authenticates the human through your SSO or SAML provider. There is no shared or anonymous identity. The session log records who asked, what they asked, and what came back. Output entered into a validated system carries the reviewing human's identity and signature from that system.</td></tr>
+            <tr><td>Legible</td><td>Output is plain text and structured documents readable without proprietary tooling. Session logs are readable JSON.</td></tr>
+            <tr><td>Contemporaneous</td><td>Sessions are timestamped at execution against your NTP-synchronised infrastructure clock, not against a client machine.</td></tr>
+            <tr><td>Original</td><td>The agent never mutates a source record. Every retrieved value is carried with its source system, record identifier and retrieval timestamp, so any figure in an output can be traced to the exact record it came from at the moment it was read.</td></tr>
+            <tr><td>Accurate</td><td>Numerical values are returned by deterministic queries and calculations, not generated by the language model. Narrative claims are grounded in retrieved records and cited. See section 05.</td></tr>
+            <tr><td>Complete</td><td>The full session is logged: the request, every record identifier retrieved, every tool called, the model and version used, and the output returned. Nothing is summarised away.</td></tr>
+            <tr><td>Consistent</td><td>Logs are written in sequence with timestamps in a single timezone reference, retained in the order of execution.</td></tr>
+            <tr><td>Enduring</td><td>Logs are written to your storage under your retention schedule, not to an application database I control.</td></tr>
+            <tr><td>Available</td><td>Logs are retrievable by your team without going through me, in a format an inspector can read.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Where the human approval step sits</h3>
+      <p>Between the agent's output and any GxP consequence. Always. The agent assembles evidence and proposes; a named, qualified human reviews the evidence, accepts or rejects the proposal, and applies their own electronic signature inside the validated system under that system's existing Part 11 controls. The agent holds no credentials in a validated system, has no signature manifestation, and cannot execute an approval. If the human does nothing, nothing happens.</p>
+    </article>
+
+    <!-- ==================== 4. VALIDATION ==================== -->
+    <article class="docsec" id="validation">
+      <div class="num">04</div>
+      <h2>Validation approach</h2>
+
+      <p>Validation is risk-based and driven by intended use, following GAMP 5 second edition and ICH Q9. The intended use statement does most of the work here: the system is <b>decision support</b>, its output is reviewed by a qualified human before it has any GxP effect, and it has no write path into a validated system. That places it materially lower on the risk scale than a system making autonomous GxP decisions, and the validation effort should be scaled to match rather than inflated to look rigorous.</p>
+
+      <h3>GAMP category positioning</h3>
+      <ul class="doclist">
+        <li><b>Infrastructure</b> (cloud tenant, container platform, storage) is Category 1 and leans on your existing qualified infrastructure. I do not re-qualify your platform.</li>
+        <li><b>Retrieval and orchestration components</b> are Category 4, configured products. They are commercially available or open-source components used as intended and configured for your environment.</li>
+        <li><b>Workflow-specific configuration</b> (the tool definitions, the queries, the prompts, the output templates for your particular workflow) is Category 5, bespoke. This is where the testing effort concentrates, and it is the honest place to put it.</li>
+      </ul>
+
+      <h3>What the validation package contains</h3>
+      <ul class="doclist">
+        <li>Validation plan, with the intended use statement and the risk assessment that justifies the effort level</li>
+        <li>User requirements specification, written with your process owners rather than for them</li>
+        <li>Functional and configuration specification</li>
+        <li>Risk assessment with each identified risk traced to a specific mitigation and a specific test</li>
+        <li>IQ against your infrastructure, OQ against application function, PQ against your workflow with your data and your people</li>
+        <li>Requirements traceability matrix</li>
+        <li>Executed test scripts with evidence</li>
+        <li>Validation summary report</li>
+        <li>Change control and periodic review procedure</li>
+      </ul>
+
+      <h3>Testing something that is not deterministic</h3>
+      <p>This is the part most vendors skip, so here it is plainly. A language model does not return byte-identical output on every run, and you cannot test it the way you test a calculation in a spreadsheet. Pretending otherwise fails the first serious audit question. The approach splits the system in two:</p>
+      <ul class="doclist">
+        <li><b>Everything deterministic is tested deterministically.</b> Retrieval, queries, calculations and data transformations return the same result every time and are tested with fixed inputs and expected outputs, exactly like any other computerised system. This covers every number that appears in an output.</li>
+        <li><b>The generative layer is tested against acceptance criteria over a fixed challenge set.</b> A defined set of representative cases with known correct answers is executed against the system, and each output is assessed against criteria that are objectively checkable: is every factual claim traceable to a retrieved record, is any claim present that the retrieved data does not support, is the correct conclusion reached, is the required content present. The pass threshold is agreed up front and the challenge set is version-controlled as a validation artifact.</li>
+      </ul>
+
+      <h3>Change control</h3>
+      <p>The model and its version are pinned. There are no silent upgrades. Re-qualification is triggered by a defined list of events: a model version change, a change to prompts or tool definitions, a change to a source system's schema, or a change to the workflow itself. The regression challenge set is re-executed against each of these before the change is released, which is what makes model updates a controlled event rather than an unannounced one.</p>
+    </article>
+
+    <!-- ==================== 5. MODEL GOVERNANCE ==================== -->
+    <article class="docsec" id="model-governance">
+      <div class="num">05</div>
+      <h2>Model governance</h2>
+
+      <h3>Which models, running where</h3>
+      <p>Frontier models from a named provider, reached through an endpoint you control: Azure OpenAI in your subscription, Amazon Bedrock in your account, or Google Vertex in your project. Where no third-party inference is acceptable, an open-weight model self-hosted on your infrastructure. In every case the specific model and version are named in the configuration specification and pinned. Your data is never used to train or fine-tune a model, and the endpoint is configured for zero retention.</p>
+
+      <h3>How hallucination risk is bounded</h3>
+      <p>Three controls, in order of how much they matter.</p>
+      <ul class="doclist">
+        <li><b>The model does not produce numbers.</b> Every figure in an output comes from a deterministic query or calculation executed as a tool call, and the model reports the returned value rather than generating it. A model cannot invent a titer, a timepoint or a lot number it was never given. This single design choice removes the failure mode that would matter most to you.</li>
+        <li><b>Every narrative claim is grounded in a retrieved record.</b> The model answers from the records the retrieval layer returned, not from what it absorbed in training. Claims carry a citation to source system, record identifier and retrieval timestamp, so a reviewer can go from any sentence in an output back to the record behind it in one step. An output with an uncited claim is a defect, and the validation challenge set tests for exactly that.</li>
+        <li><b>The system is built to say it doesn't know.</b> Where the retrieved data does not support an answer, the correct output is a statement that the data is insufficient and what is missing. That behaviour is part of the acceptance criteria, not an incidental property.</li>
+      </ul>
+
+      <p>What this does not do is make the system incapable of error. Grounding narrows the failure modes and makes the remaining ones visible to a reviewer; it does not eliminate them. That is precisely why a qualified human approves every output before it has any effect, and why I would be suspicious of anyone selling you a version of this without that step.</p>
+
+      <h3>What gets logged</h3>
+      <p>For every session: the authenticated user, the request, every record identifier retrieved, every tool call and its returned value, the model name and version, the full output, and timestamps throughout. The log is sufficient to reconstruct after the fact why the system said what it said, which is the question an inspector or an internal auditor will actually ask.</p>
+    </article>
+
+    <!-- ==================== 6. BOUNDARIES ==================== -->
+    <article class="docsec" id="boundaries">
+      <div class="num">06</div>
+      <h2>What I don't do</h2>
+
+      <p>These are scope boundaries, not current limitations waiting to be lifted in a later phase. If an engagement would require crossing one of them, that is a conversation with your quality organisation before it is a conversation with me.</p>
+
+      <ul class="bounds">
+        <li><b>No autonomous changes to validated systems.</b> Ever, in any deployment pattern.</li>
+        <li><b>No writes to the QMS.</b> No deviations raised, no CAPAs closed, no change controls modified.</li>
+        <li><b>No writes to LIMS, MES or ERP.</b> No results entered, no batch records altered, no master data changed.</li>
+        <li><b>No electronic signatures.</b> The agent has no signature manifestation and no credentials to apply one.</li>
+        <li><b>No batch disposition.</b> Release remains a human decision made by a qualified person.</li>
+        <li><b>No decisions without a named human approver.</b> If no one is accountable for the output, the workflow is not in scope.</li>
+        <li><b>No training on your data.</b> Not for my models, not for a provider's, not for a future client's.</li>
+        <li><b>No access beyond the invoking user's entitlements.</b> The agent is not a privileged back door.</li>
+        <li><b>No production deployment without a validation package.</b> Demos run on demo data.</li>
+        <li><b>No shadow system of record.</b> Your validated systems stay authoritative and the agent's output store never competes with them.</li>
+      </ul>
+    </article>
+
+    <!-- ==================== 7. ACCESS ==================== -->
+    <article class="docsec" id="access">
+      <div class="num">07</div>
+      <h2>Access required</h2>
+
+      <p>This is the minimum footprint for a Data Diagnostic, which is where nearly every engagement starts. It is deliberately small, because a diagnostic is an assessment rather than a build, and because a smaller ask is easier for you to approve.</p>
+
+      <div class="tablewrap">
+        <table class="facts">
+          <thead>
+            <tr><th>What I need</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Read-only access or extracts</td><td>For the systems named in the scope, limited to the data domains relevant to the named initiative. A validation or UAT instance is preferred over production.</td></tr>
+            <tr><td>Schema and data dictionary</td><td>To assess structure, completeness and joinability without guessing at your field semantics.</td></tr>
+            <tr><td>Representative records</td><td>A real batch, a real deviation, a real stability study. Volume is not the point; representativeness is.</td></tr>
+            <tr><td>Two hours with a system owner</td><td>Typically two sixty-minute sessions per system. What the fields actually mean in practice is never in the documentation.</td></tr>
+            <tr><td>A named IT and QA contact</td><td>So that questions about entitlements and controls get answered by the right person rather than inferred.</td></tr>
+            <tr><td>CDA, and an MSA before any build</td><td>Signed before any access is granted.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>What I do not need</h3>
+      <ul class="doclist">
+        <li>Write access of any kind, to anything.</li>
+        <li>Administrator or superuser credentials.</li>
+        <li>Patient data. CMC and manufacturing data is the scope. If PHI or PII is present in a system in scope, it is excluded and I will say so in writing before access is granted.</li>
+        <li>Access to systems outside the agreed scope list, which is fixed in the statement of work.</li>
+        <li>A VPN account that outlives the engagement. Access is time-boxed and revoked at close.</li>
+      </ul>
+    </article>
+
+    <!-- ==================== DOWNLOAD ==================== -->
+    <div class="dl" id="download">
+      <div>
+        <h2>Take this into the meeting</h2>
+        <p>Prints to a clean letter-size document with contact details and no site navigation. Choose "Save as PDF" as the destination.</p>
+      </div>
+      <button class="btn btn-dark" data-print type="button">Download as PDF <span class="arr" aria-hidden="true">&darr;</span></button>
+    </div>
+
+    <p class="pnote">Questions this page doesn't answer are worth sending directly. <a href="mailto:kyle@kylelangham.com?subject=Governance%20and%20validation%20questions" style="color:var(--accent-ink);font-weight:600;text-decoration:none;">kyle@kylelangham.com</a></p>
+
+  </div>
+</section>
+
+<!-- printed closing block: hidden on screen, appears in the PDF -->
+<div class="printonly print-foot">
+  <b>Kyle Langham Consulting</b><br>
+  Kyle Langham &middot; kyle@kylelangham.com &middot; (240) 848-2562 &middot; kylelangham.com &middot; linkedin.com/in/kylelangham<br>
+  Governance, security and validation. Current as of the date printed.
+</div>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Kyle Langham Consulting home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <span><span class="n">Kyle Langham</span><span class="t">Consulting</span></span>
+    </a>
+    <div class="contact">
+      <a href="tel:+12408482562">(240) 848-2562</a><span class="dot"></span>
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a><span class="dot"></span>
+      <a href="https://www.linkedin.com/in/kylelangham/">LinkedIn</a><span class="dot"></span>
+      <a href="https://intelligence-layer.com">The Intelligence Layer</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
