@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Run-to-run process comparison for PD · Kyle Langham Consulting</title>
-<meta name="description" content="An agent that aligns process parameter traces across runs on process time, joins them to quality attributes, and shows which parameters moved with which outcomes.">
+<title>Characterization coverage and range support for PD · Kyle Langham Consulting</title>
+<meta name="description" content="An agent that maps every unit operation to its characterization study, compares proven acceptable ranges against the ranges actually registered and operated, and ranks the gaps by risk.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -60,8 +60,8 @@
 <header class="phead">
   <div class="wrap">
     <div class="eyebrow">Process Development</div>
-    <h1>Compare runs and see which parameter moved with which attribute</h1>
-    <p class="standfirst">An agent that pulls every parameter trace and every offline result across a campaign, aligns the runs on process time, and shows where the runs actually diverged and what moved with it.</p>
+    <h1>Find the registered ranges your characterization data does not support</h1>
+    <p class="standfirst">An agent that maps every unit operation to its characterization study, compares every proven acceptable range against the range actually registered and operated, and ranks what is missing by how hard it would be to defend.</p>
   </div>
 </header>
 
@@ -69,11 +69,11 @@
 <section class="block" style="padding-top:30px;">
   <div class="wrap">
     <div class="eyebrow">What this looks like today</div>
-    <h2 class="lede">Run 4 is down eighteen percent and everyone has a theory.</h2>
+    <h2 class="lede">The process is operating exactly as filed, which is precisely why nobody catches it.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>The campaign is four engineering runs in and the titer on run 4 is down eighteen percent against run 2. In the debrief there are five plausible explanations and no way to test any of them quickly. The seed train was a day longer. The feed started at a different cell density. There was a pH excursion around hour 60 that was within range and therefore never flagged. A different lot of media was used.</p>
-      <p>Checking any one of those means going to the historian for the parameter traces, to the LIMS for the offline assays and the release attributes, and to the batch record for what the operators actually did rather than what the protocol said. Then aligning four runs that started at different clock times onto a common process time axis, in Excel, by hand.</p>
-      <p>That is roughly a week per comparison, which means it happens for the runs that fail dramatically and not for the ones that drift quietly. The comparisons you skip are where the process knowledge was.</p>
+      <p>Characterization gets done unit operation by unit operation, over years, by different people, against shifting priorities. Some steps get a full study. Some get a platform justification. Some get nothing because they were never the interesting ones. The record of which is which lives across a study register, a set of individual reports, and whatever the last person remembered.</p>
+      <p>The gaps this leaves are not deviations. A registered range wider than the range you actually characterized is not a compliance breach, it is a filed range being operated as filed. Nothing alarms. No batch fails. The exposure only appears when an inspector asks what data supports the upper end of a range, or when a batch runs near that end and you have nothing to say about why it is acceptable.</p>
+      <p>Assembling the honest answer means reading every study against every parameter in the batch record and the filing, and holding several hundred comparisons in your head. It takes two to three weeks, so it happens ahead of a filing or an inspection, not as a standing view.</p>
     </div>
   </div>
 </section>
@@ -83,12 +83,15 @@
   <div class="wrap">
     <div class="demo">
       <div class="eyebrow">The demo</div>
-      <h2 class="lede" style="max-width:22em;">Four runs, aligned on process time, parameters against attributes.</h2>
+      <h2 class="lede" style="max-width:22em;">Every unit operation, every range, against the data that supports it.</h2>
 
+      <!-- ─── VIDEO SLOT ────────────────────────────────────────────────────
+           Live embed. To swap the video, replace the id in the iframe src below.
+      ──────────────────────────────────────────────────────────────────── -->
       <div class="video-wrap" style="margin-top:22px;">
 
         <iframe src="https://www.youtube-nocookie.com/embed/-uGrkQIXjKk?rel=0"
-                title="Agent comparing process runs across the historian, MES and LIMS"
+                title="Agent assessing process characterization coverage and range support"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen></iframe>
@@ -96,7 +99,7 @@
       </div>
       <!-- ─── END VIDEO SLOT ──────────────────────────────────────────── -->
 
-      <p class="demo-cap">The agent is given a set of run identifiers. It pulls every continuous parameter trace and every offline and release result for those runs, aligns them on elapsed process time rather than clock time, then reports where the runs materially diverged and which quality attributes moved alongside each divergence.</p>
+      <p class="demo-cap">The agent is given a product and its characterization workbooks. It walks every unit operation in the manufacturing process, matches each to its characterization study where one exists, compares every proven acceptable range against the range actually registered and operated in the batch record, and returns the gaps ranked by risk: steps with no study at all, registered ranges wider than the data supports, and studies still open against parameters already in routine use.</p>
     </div>
   </div>
 </section>
@@ -105,18 +108,18 @@
 <section class="block">
   <div class="wrap">
     <div class="eyebrow">Under the hood</div>
-    <h2 class="lede">Alignment first, because everything downstream depends on it.</h2>
+    <h2 class="lede">The finding that matters is the one where nothing is wrong.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>Most manual run comparisons go wrong at the alignment step, not the analysis step. Runs inoculated at different times of day, holds of different lengths and different seed train durations mean a straight clock-time overlay compares hour 40 of one run against hour 52 of another. The agent does the alignment as a deterministic transform before anything else happens.</p>
+      <p>An uncharacterized step and an over-wide registered range both look completely normal from inside the process. Every batch passes. No rule is broken. That is why these persist for years, and it is why the check has to be systematic rather than triggered by an event. There is no event.</p>
     </div>
     <ul class="doclist" style="margin-top:20px;max-width:var(--readw);">
-          <li><b>Historian and MES</b> for the continuous traces across every run in the set: pH, dissolved oxygen, temperature, agitation, feed rate, gas flow and vessel weight, at native resolution.</li>
-          <li><b>Process-time alignment</b> anchored on inoculation and on named phase transitions taken from the batch record, so equivalent points in the process are actually compared to each other.</li>
-          <li><b>LIMS</b> for the offline profile and the release attributes per run: viable cell density, viability, metabolites, titer, and the product quality attributes including aggregate, charge variants and glycosylation where they exist.</li>
-          <li><b>Divergence detection</b> as a deterministic calculation over the aligned traces, identifying where and when runs separate materially rather than trivially, with the magnitude and duration of each excursion quantified.</li>
-          <li><b>Parameter against attribute</b>, reported as association with the strength shown and the underlying values cited. Four runs is four data points, and the output says so.</li>
+          <li><b>The characterization workbooks</b> as PD actually keeps them: the study register, the criticality assessment with its severity and occurrence scoring, the DOE runs behind each study, and the proven acceptable ranges each one established.</li>
+          <li><b>MES</b> for every parameter actually recorded against the process, unit operation by unit operation, so coverage is measured against what is operated rather than against what someone remembered to list.</li>
+          <li><b>PAR against registered range</b>, compared line by line. A registered range narrower than the proven range is conservative and reported as fine. A registered range wider than the proven range means the process may legally operate where no study supports it, and that is the headline.</li>
+          <li><b>Study completeness</b>, because a study that is open at three of twelve planned runs supports considerably less than its entry in the register implies.</li>
+          <li><b>Ranked by consequence</b>, not by count. A viral clearance step with no characterization outranks a formulation step with a partial study, and the output says why in terms a reviewer can argue with.</li>
     </ul>
-    <p class="pnote">This is the workflow where it matters most to be blunt: the agent reports association, not causation. It will tell you that the pH excursion at hour 60 coincides with the runs that lost titer, and it will show you every value behind that statement. Deciding whether that is mechanism or coincidence is process science, and it stays with your scientist.</p>
+    <p class="pnote">The agent reports what is characterized, what is not, and where the filed ranges outrun the data. It does not decide which gaps are acceptable, what the remediation plan should be, or whether a range should be narrowed rather than a study extended. Those are process science and regulatory strategy decisions and they stay with your people.</p>
   </div>
 </section>
 
@@ -124,27 +127,27 @@
 <section class="block band">
   <div class="wrap">
     <div class="eyebrow">Where the time goes</div>
-    <h2 class="lede">Cheap enough to run on the boring comparisons too.</h2>
+    <h2 class="lede">From a pre-filing scramble to a view you can hold all year.</h2>
 
     <div class="timegrid">
       <div class="tcol now">
         <div class="k">Today</div>
-        <div class="t">1<small> week</small></div>
+        <div class="t">2-3<small> wks</small></div>
         <ul>
-          <li>Per comparison, mostly spent exporting traces and aligning them by hand</li>
-          <li>Only done for runs that fail visibly, not for runs that drift</li>
-          <li>Alignment done on clock time because process-time alignment is too tedious</li>
-          <li>The resulting workbook is not reusable for the next campaign</li>
+          <li>Study reports read individually against the batch record and the filing</li>
+          <li>Coverage depends on someone remembering which steps were skipped and why</li>
+          <li>PAR against registered range compared for the parameters people think of</li>
+          <li>Done ahead of a filing or an inspection, rarely as a standing view</li>
         </ul>
       </div>
       <div class="tcol next">
         <div class="k">With an agent</div>
-        <div class="t">10<small> min</small></div>
+        <div class="t">15<small> min</small></div>
         <ul>
-          <li>Every run in the campaign aligned on process time and compared in one pass</li>
-          <li>Divergences quantified rather than eyeballed off an overlay</li>
-          <li>Worth running on every comparison, including the ones nobody would fund a week for</li>
-          <li>A process scientist judges mechanism. The agent does not claim causation.</li>
+          <li>Every unit operation and every parameter checked in one pass</li>
+          <li>Gaps ranked by consequence, with the reasoning shown for each</li>
+          <li>Cheap enough to re-run whenever a study closes or a range changes</li>
+          <li>PD decides what to remediate and in what order</li>
         </ul>
       </div>
     </div>
@@ -157,10 +160,10 @@
 <section class="block">
   <div class="wrap">
     <div class="eyebrow">What it takes to get there</div>
-    <h2 class="lede">Historian access is usually the gate.</h2>
+    <h2 class="lede">Development data in spreadsheets is fine. Development data nobody owns is not.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>Parameter traces are the richest data in the building and often the hardest to get at programmatically. Historian access is frequently read-only through a reporting layer that downsamples, phase transitions live in the executed batch record as operator entries rather than as tags, and the join between a run identifier in the historian and a lot number in the LIMS is sometimes a manual mapping in a spreadsheet.</p>
-      <p>The Data Diagnostic establishes what is actually reachable and at what resolution, and prices the path from there. Two to three weeks, fixed fee, before you commit to a build that depends on it.</p>
+      <p>Characterization data lives in working files, and that is normal and workable. The agent reads spreadsheets directly and does not need them migrated first. What stops it is a study register that has drifted from what was actually run, proven acceptable ranges recorded in individual reports but never collected anywhere, or a parameter naming convention in the batch record that shares nothing with the one used in development.</p>
+      <p>The Data Diagnostic establishes what is reachable and how well the two vocabularies line up, and prices the path from there. Two to three weeks, fixed fee, before you commit to a build that depends on it.</p>
     </div>
     <p style="margin-top:18px;"><a href="diagnostic.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;font-size:15px;">The Data Diagnostic, including the price <span aria-hidden="true">&rarr;</span></a></p>
     <p class="pnote">Your IT and quality systems group will want the architecture, the read and write paths, the Part 11 position and the validation approach. That is all written down on the <a href="for-it.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;">governance and validation page</a>, in a form you can forward or print.</p>
@@ -179,6 +182,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>
         kyle@kylelangham.com
       </a>
+      <p class="nocall">No form, no gate, no email capture.</p>
     </div>
 
     <!-- quiet secondary route, deliberately not styled as a button -->

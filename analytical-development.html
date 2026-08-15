@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Method performance and drift monitoring for AD · Kyle Langham Consulting</title>
-<meta name="description" content="An agent that reads system suitability across every run of a method since validation and identifies what the drift tracks with: column, instrument, analyst or standard lot.">
+<title>Method fitness for specification for AD · Kyle Langham Consulting</title>
+<meta name="description" content="An agent that reads the method qualification package, quantifies the bias between the development bench method and the validated GMP method, and finds every release result sitting inside the method's own uncertainty of the limit.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -60,8 +60,8 @@
 <header class="phead">
   <div class="wrap">
     <div class="eyebrow">Analytical Development</div>
-    <h1>Analyze how the method has behaved across every run, not the last one</h1>
-    <p class="standfirst">An agent that reads system suitability from every injection since validation, segments it by column, instrument, analyst and standard lot, and tells you which of those the drift actually follows.</p>
+    <h1>Know whether the method is precise enough for the limit it is judging</h1>
+    <p class="standfirst">An agent that reads the qualification package, quantifies how far the development bench method sits from the validated GMP method, and finds every release result close enough to the specification that the method cannot cleanly call it.</p>
   </div>
 </header>
 
@@ -69,11 +69,11 @@
 <section class="block" style="padding-top:30px;">
   <div class="wrap">
     <div class="eyebrow">What this looks like today</div>
-    <h2 class="lede">System suitability passes right up until the method investigation.</h2>
+    <h2 class="lede">The method qualified. Nobody asked what its precision does to the specification.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>A method is validated, transferred and put into routine use. Every run passes system suitability, so nothing raises a flag. Underneath that, the standard response has been creeping down for eight months, resolution between the main peak and the closest impurity has narrowed, and one instrument runs consistently different from the other two.</p>
-      <p>You find out when an OOS forces a method investigation, and the first question anyone asks is how long this has been happening. Answering it means pulling every run of that method out of the LIMS, extracting the suitability parameters per injection, and building a picture by hand. That takes about a week, and it happens after the OOS rather than before it.</p>
-      <p>The information was there the whole time. It was in the same system, in the runs you already paid to execute, sitting one query away from being useful.</p>
+      <p>A method is qualified and put to work. Most parameters pass. Intermediate precision comes in above its criterion, an investigation opens, and the item sits on a list while the method is used anyway because there is nothing else to use. Separately, the development bench version of the method reads a little differently from the validated GMP version, which everyone knows and nobody has quantified.</p>
+      <p>Then a result comes in at 1.9 against a limit of 2.0 and passes. Whether that pass is real depends entirely on how much the method moves, and the number that would answer it is sitting in a qualification spreadsheet that nobody has connected to the release data.</p>
+      <p>Making that connection by hand means reconciling a working Excel file against LIMS, applying the precision figure across the whole release population, and doing it carefully enough that you would defend it. It is a two or three day job, so it happens when an inspector asks, not before.</p>
     </div>
   </div>
 </section>
@@ -83,18 +83,15 @@
   <div class="wrap">
     <div class="demo">
       <div class="eyebrow">The demo</div>
-      <h2 class="lede" style="max-width:22em;">Every injection since validation, segmented four ways.</h2>
+      <h2 class="lede" style="max-width:22em;">The qualification package, applied to every result the method has produced.</h2>
 
       <!-- ─── VIDEO SLOT ────────────────────────────────────────────────────
-           To go live: delete the <div class="video-ph"> block below and
-           uncomment the iframe, replacing VIDEO_ID with the unlisted
-           YouTube id. Nothing else on the page changes.
+           Live embed. To swap the video, replace the id in the iframe src below.
       ──────────────────────────────────────────────────────────────────── -->
       <div class="video-wrap" style="margin-top:22px;">
 
-
         <iframe src="https://www.youtube-nocookie.com/embed/-uGrkQIXjKk?rel=0"
-                title="Agent analysing method system suitability and drift across runs from LIMS"
+                title="Agent assessing analytical method fitness against the specification it polices"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen></iframe>
@@ -102,7 +99,7 @@
       </div>
       <!-- ─── END VIDEO SLOT ──────────────────────────────────────────── -->
 
-      <p class="demo-cap">The agent is given a method. It reads every run of that method since validation, extracts the system suitability parameters per injection, then segments the population by column lot, instrument, analyst and reference standard lot to find which variable the drift tracks with, and shows the run at which it would first have been detectable.</p>
+      <p class="demo-cap">The agent is given a method and its qualification workbook. It extracts every qualification parameter against its acceptance criterion, quantifies the bias between the development bench method and the validated GMP method on shared material, derives an uncertainty band from precision and bias together, then queries every release result the method has produced and returns the ones sitting inside that band of the specification limit.</p>
     </div>
   </div>
 </section>
@@ -111,18 +108,18 @@
 <section class="block">
   <div class="wrap">
     <div class="eyebrow">Under the hood</div>
-    <h2 class="lede">The question is not whether it drifted. It is what it drifted with.</h2>
+    <h2 class="lede">Precision is not a number in a report. It is a width around every result you have ever released against.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>A single trend line across all runs is not much use, because a method can drift for four different reasons and the remedy is different for each. The value is in the segmentation, which is exactly the part that is too tedious to do by hand and trivial to do by query.</p>
+      <p>Qualification is usually treated as a gate that a method passes once. The more useful reading is that qualification tells you how much the method moves, and that number has consequences for every result it produced afterwards. Connecting the two is arithmetic. It is only ever skipped because the two sets of numbers live in different places.</p>
     </div>
     <ul class="doclist" style="margin-top:20px;max-width:var(--readw);">
-          <li><b>LIMS</b> for every run of the method since validation, down to injection level: resolution, tailing factor, theoretical plates, replicate RSD, reference standard response and retention time.</li>
-          <li><b>Run metadata</b> as the segmentation axes: column serial and lot, instrument, analyst, reference standard lot, mobile phase preparation and date.</li>
-          <li><b>Deterministic statistics</b> per segment, calculated in code. Where a difference between instruments or analysts is reported, the underlying comparison is a query result rather than a model impression.</li>
-          <li><b>Earliest-detection point</b>, which is the finding that changes behaviour: the run at which the drift would have been visible had anyone been looking, and what threshold would have caught it.</li>
-          <li><b>Cross-check against the validation report</b> so current performance is compared to what was actually demonstrated at validation rather than to the acceptance criterion alone.</li>
+          <li><b>The qualification workbook</b> as it actually exists, which is usually an uncontrolled spreadsheet: accuracy and spike recovery, repeatability, intermediate precision, linearity, range, limit of quantitation and solution stability, each against its acceptance criterion.</li>
+          <li><b>Paired-material comparison</b> between the development bench method and the validated GMP method, on the reference standard, engineering material and retains that were run on both. Materials run on only one method are reported as unpaired rather than quietly dropped.</li>
+          <li><b>An uncertainty band</b> built from intermediate precision and observed bias as two separate components, with the arithmetic shown rather than collapsed into a single figure.</li>
+          <li><b>LIMS</b> for every release result the method has produced, joined to the specification, stratified drug substance from drug product, with results tied to a closed lab investigation excluded and reported.</li>
+          <li><b>The results the method cannot cleanly resolve</b>: every value sitting within the uncertainty band of the limit, listed by batch with its value and specification, which is the output that changes what you do next.</li>
     </ul>
-    <p class="pnote">The agent describes the measurement system's behaviour and points at what the behaviour correlates with. Whether that constitutes a method investigation, a revalidation, a column change or nothing at all is an analytical judgement, and it stays with an AD scientist.</p>
+    <p class="pnote">The agent quantifies what the measurement system can and cannot resolve. It does not say a result was wrong, and it does not decide whether the method is fit for purpose, whether the specification needs revisiting, or whether qualification can be signed. Those stay with an AD scientist and the quality unit. Where intermediate precision has itself failed, the agent says plainly that the uncertainty estimate is built on a failing parameter.</p>
   </div>
 </section>
 
@@ -130,27 +127,27 @@
 <section class="block band">
   <div class="wrap">
     <div class="eyebrow">Where the time goes</div>
-    <h2 class="lede">From a retrospective exercise to routine surveillance.</h2>
+    <h2 class="lede">From a question you answer under audit to one you answer before filing.</h2>
 
     <div class="timegrid">
       <div class="tcol now">
         <div class="k">Today</div>
-        <div class="t">1<small> week</small></div>
+        <div class="t">2-3<small> days</small></div>
         <ul>
-          <li>Triggered by an OOS, so the analysis is always retrospective</li>
-          <li>Every run exported and suitability parameters extracted by hand</li>
-          <li>Segmentation by column, instrument and analyst rarely gets done at all</li>
-          <li>The answer arrives after the investigation has already started</li>
+          <li>Qualification data in a working spreadsheet, release data in LIMS, joined by hand</li>
+          <li>Bench-to-GMP bias known anecdotally and rarely quantified</li>
+          <li>Precision applied to the population almost never, because it is tedious</li>
+          <li>The question gets asked by an inspector rather than before the filing</li>
         </ul>
       </div>
       <div class="tcol next">
         <div class="k">With an agent</div>
         <div class="t">5<small> min</small></div>
         <ul>
-          <li>Every injection since validation read and segmented in one pass</li>
-          <li>The drift attributed to a variable rather than just observed</li>
-          <li>Cheap enough to run monthly as surveillance instead of once as forensics</li>
-          <li>An AD scientist decides what the finding means and what to do about it</li>
+          <li>Qualification, bias and the full release population read in one pass</li>
+          <li>The uncertainty band shown with its components, not asserted</li>
+          <li>Cheap enough to re-run whenever the method or the specification moves</li>
+          <li>An AD scientist decides what it means for fitness and for the spec</li>
         </ul>
       </div>
     </div>
@@ -163,10 +160,10 @@
 <section class="block">
   <div class="wrap">
     <div class="eyebrow">What it takes to get there</div>
-    <h2 class="lede">It depends on suitability data being queryable, not just archived.</h2>
+    <h2 class="lede">The qualification data has to be reachable, and it usually lives outside your validated systems.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>Some LIMS and CDS configurations store system suitability as structured fields per injection. Others store the result and keep the parameters inside a PDF report attached to the run, which turns a query into an extraction problem. Column and instrument identifiers are the other common gap: if the column lot is recorded in an analyst's notebook rather than against the run, the most useful segmentation axis is not available.</p>
-      <p>The Data Diagnostic tells you which situation you are in for the methods you care about, and what it takes to close the gap, before you commit to a build.</p>
+      <p>Qualification and method development data sits in spreadsheets more often than in a system, which is not a problem in itself. The agent reads spreadsheets. It becomes a problem when the file lives on a personal drive with three versions, when the paired bench-and-GMP comparison was never run on shared material, or when the release results cannot be joined back to the method revision that produced them.</p>
+      <p>The Data Diagnostic tells you which situation you are in for the methods that matter, and what it takes to close the gap, before you commit to a build.</p>
     </div>
     <p style="margin-top:18px;"><a href="diagnostic.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;font-size:15px;">The Data Diagnostic, including the price <span aria-hidden="true">&rarr;</span></a></p>
     <p class="pnote">Your IT and quality systems group will want the architecture, the read and write paths, the Part 11 position and the validation approach. That is all written down on the <a href="for-it.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;">governance and validation page</a>, in a form you can forward or print.</p>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Transfer package reconciliation for tech transfer · Kyle Langham Consulting</title>
-<meta name="description" content="An agent that compares sending and receiving site methods, specifications and process parameters line by line and names every difference with its source at both sites.">
+<meta name="description" content="An agent that compares the development package against the governed GMP process line by line and names every difference with its source on both sides.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -60,8 +60,8 @@
 <header class="phead">
   <div class="wrap">
     <div class="eyebrow">Tech Transfer</div>
-    <h1>Reconcile sending and receiving site line by line</h1>
-    <p class="standfirst">An agent that reads both sites' methods, specifications and process parameters and returns a line-by-line comparison: matched, differing, or present at one site only, with the source document for every row.</p>
+    <h1>Reconcile the development package against the GMP process, line by line</h1>
+    <p class="standfirst">An agent that reads the development methods, specifications and process parameters against the ones actually running under GMP, and returns a line-by-line comparison: matched, differing, or present on one side only, with the source cited for every row.</p>
   </div>
 </header>
 
@@ -71,8 +71,8 @@
     <div class="eyebrow">What this looks like today</div>
     <h2 class="lede">The gap surfaces at engineering runs, six months after the handover.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>The transfer package is handed over and it is thorough. Methods, specifications, the batch record master, the comparability protocol, development reports. Then six months later at the first engineering run the receiving site's HPLC method uses a different column, the sending site tightened an in-process limit after the package was frozen, a raw material is specified at a different grade, and there is an attribute on the sending site's specification that has no equivalent on the receiving side.</p>
-      <p>None of that was hidden. It was all in the documents. It was missed because reconciliation was two people reading two sets of binders and trying to hold four hundred parameters in their heads at the same time, under time pressure, at a point in the project where everyone wanted to move on.</p>
+      <p>The transfer package is handed over and it is thorough. Methods, specifications, the batch record master, the comparability protocol, development reports. Then six months later at the first engineering run the GMP method reads differently from the bench method it was built on, a limit was tightened by change control after the package was frozen, a raw material is specified at a different grade, and there is a parameter in the development work that has no equivalent anywhere in the batch record.</p>
+      <p>None of that was hidden. It was all in the documents and the spreadsheets. It was missed because reconciliation was two people reading two sets of material against each other and trying to hold four hundred parameters in their heads at the same time, under time pressure, at a point in the project where everyone wanted to move on.</p>
       <p>The cost of finding it late is not the fix. It is the engineering run you burned, the schedule you lose, and the comparability argument you now have to make retrospectively.</p>
     </div>
   </div>
@@ -86,23 +86,20 @@
       <h2 class="lede" style="max-width:22em;">Both packages, compared row by row.</h2>
 
       <!-- ─── VIDEO SLOT ────────────────────────────────────────────────────
-           To go live: delete the <div class="video-ph"> block below and
-           uncomment the iframe, replacing VIDEO_ID with the unlisted
-           YouTube id. Nothing else on the page changes.
+           Live embed. To swap the video, replace the id in the iframe src below.
       ──────────────────────────────────────────────────────────────────── -->
       <div class="video-wrap" style="margin-top:22px;">
 
         <iframe src="https://www.youtube-nocookie.com/embed/-uGrkQIXjKk?rel=0"
-                title="Agent reconciling sending and receiving site transfer packages"
+                title="Agent reconciling the development transfer package against the GMP process"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen></iframe>
 
-
       </div>
       <!-- ─── END VIDEO SLOT ──────────────────────────────────────────── -->
 
-      <p class="demo-cap">The agent is pointed at both sites' document sets and systems. It extracts every method parameter, every specification line and every process setpoint from each side, matches them to each other, and returns a reconciliation table where each row is marked as matched, differing or single-site, with the source document and section cited on both sides.</p>
+      <p class="demo-cap">The agent is pointed at the development package and the governed GMP systems. It extracts every method parameter, every specification line and every process setpoint from each side, matches them to each other across differing nomenclature, and returns a reconciliation table where each row is marked as matched, differing or single-source, with the origin cited on both sides down to the workbook and sheet or the system and record.</p>
     </div>
   </div>
 </section>
@@ -113,14 +110,14 @@
     <div class="eyebrow">Under the hood</div>
     <h2 class="lede">Matching is the hard part, and it is done conservatively.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>The difficulty here is not reading the documents. It is deciding that the sending site's "HMW by SEC" and the receiving site's "Aggregates (SE-HPLC)" are the same attribute, while not quietly matching two things that are genuinely different. The agent is built to be cautious in exactly that direction.</p>
+      <p>The difficulty here is not reading the documents. It is deciding that development's "HMW post-capture" and the GMP specification's "HMW by SEC" are the same attribute, while not quietly matching two things that are genuinely different. The agent is built to be cautious in exactly that direction.</p>
     </div>
     <ul class="doclist" style="margin-top:20px;max-width:var(--readw);">
-          <li><b>Document retrieval</b> across both sites: analytical methods, specifications, batch record masters, the comparability protocol, development reports and any transfer protocol already drafted.</li>
-          <li><b>Systems on both sides</b> where they are reachable: LIMS specifications and method parameters, MES process setpoints and in-process limits, and the QMS for change controls that have moved either site since the package was frozen.</li>
-          <li><b>Attribute and parameter matching</b> across differing nomenclature, with the basis for each match shown so a reviewer can overturn it.</li>
+          <li><b>The development package as it exists</b>: process characterization workbooks, method qualification data, DOE runs, scale-up summaries and comparability work, read directly out of the working spreadsheets rather than requiring them to be migrated first.</li>
+          <li><b>The governed systems</b> on the other side: LIMS specifications and method parameters, MES process setpoints and in-process limits, and the controlled documents behind them.</li>
+          <li><b>Attribute and parameter matching</b> across differing nomenclature, with the basis for each match shown so a reviewer can overturn it, and the origin cited on both sides down to sheet or record.</li>
           <li><b>Unmatched items are surfaced, never dropped.</b> Anything the agent cannot confidently pair is reported as unmatched for a human to adjudicate, which is the failure mode that matters: a missed difference is expensive, a flagged non-difference costs a minute.</li>
-          <li><b>Change controls since freeze</b>, checked against both sites, because the most common late surprise is a package that was accurate on the day it was written.</li>
+          <li><b>Change controls since freeze</b>, checked against both sides, because the most common late surprise is a package that was accurate on the day it was written.</li>
     </ul>
     <p class="pnote">The agent finds and presents differences. It does not decide which differences are material to comparability, and it does not draft the justification for accepting one. A transfer lead adjudicates every row, and the unmatched items are deliberately put in front of them rather than resolved automatically.</p>
   </div>
@@ -137,7 +134,7 @@
         <div class="k">Today</div>
         <div class="t">3-4<small> wks</small></div>
         <ul>
-          <li>Two people reading two sets of binders against each other</li>
+          <li>Two people reading two sets of material against each other</li>
           <li>Coverage depends on attention holding across several hundred parameters</li>
           <li>Change controls after package freeze are rarely re-checked at all</li>
           <li>Differences that are missed surface at engineering runs, at the worst cost</li>
@@ -149,7 +146,7 @@
         <ul>
           <li>Every parameter, specification line and method setting extracted from both sides and paired</li>
           <li>Unmatched items surfaced for adjudication rather than silently dropped</li>
-          <li>Post-freeze change controls checked against both sites in the same pass</li>
+          <li>Post-freeze change controls checked against both sides in the same pass</li>
           <li>The transfer lead spends their time deciding what matters instead of finding it</li>
         </ul>
       </div>
@@ -163,10 +160,10 @@
 <section class="block">
   <div class="wrap">
     <div class="eyebrow">What it takes to get there</div>
-    <h2 class="lede">This one runs on documents, which cuts both ways.</h2>
+    <h2 class="lede">One side is spreadsheets and the other is validated systems, which cuts both ways.</h2>
     <div class="prose" style="margin-top:18px;">
-      <p>Transfer content lives in documents more than in systems, which means the agent depends on those documents being machine-readable. A specification in a native document is straightforward. The same specification as a scanned signature page is an extraction problem, and a receiving site whose methods exist only in a validated document management system you cannot query programmatically is a genuine blocker rather than an inconvenience.</p>
-      <p>The Data Diagnostic establishes what is reachable on both sides before you plan around it. Where the receiving site is a CDMO, it also establishes what you are contractually able to access, which is a question worth answering early.</p>
+      <p>Development content lives in working files and documents more than in systems. That is workable. The agent reads spreadsheets and native documents directly. What breaks it is a specification that exists only as a scanned signature page, a development file with three versions and no owner, or a controlled document system that cannot be queried programmatically. Where the receiving side is a CDMO rather than your own GMP floor, the same reconciliation applies and the binding question becomes what you are contractually able to access.</p>
+      <p>The Data Diagnostic establishes what is reachable on both sides before you plan around it, including the contractual question where a partner is involved, which is worth answering early.</p>
     </div>
     <p style="margin-top:18px;"><a href="diagnostic.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;font-size:15px;">The Data Diagnostic, including the price <span aria-hidden="true">&rarr;</span></a></p>
     <p class="pnote">Your IT and quality systems group will want the architecture, the read and write paths, the Part 11 position and the validation approach. That is all written down on the <a href="for-it.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;">governance and validation page</a>, in a form you can forward or print.</p>
