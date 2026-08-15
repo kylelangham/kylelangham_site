@@ -84,7 +84,7 @@ before its demo exists.
 1. **Copy an existing function page.** `manufacturing.html` is the reference
    copy. Save it as `your-page.html`.
 
-2. **Edit the six sections.** They are labelled in the source with numbered
+2. **Edit the six sections.** They are labeled in the source with numbered
    comments and appear in this order:
 
    | # | Section | What goes here |
@@ -153,7 +153,7 @@ The "Download as PDF" button calls `window.print()`. The reader chooses
 generated server-side and there is no PDF file to keep in sync.
 
 If you add a section to that page, wrap it in `<article class="docsec">` and it
-inherits the print behaviour automatically.
+inherits the print behavior automatically.
 
 ---
 
@@ -192,6 +192,6 @@ site, animated with CSS and guarded by `prefers-reduced-motion`.
   functioning.
 - **Voice rules the copy follows:** first person singular, never "we". No
   em-dashes. No "not X, but Y". Named artifacts over abstractions.
-- **The time figures on the function pages are labelled as demo-environment
+- **The time figures on the function pages are labeled as demo-environment
   observations, not client results.** The `.honest` note under each comparison
   says so explicitly. Keep that until there are real client outcomes to cite.
