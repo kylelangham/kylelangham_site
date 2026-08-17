@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invalid assays: list, investigate, and get ahead of the next one &middot; Kyle Langham Consulting</title>
+<meta name="description" content="An agent that counts every invalid assay in the year, works a single invalid result through to a draft investigation report, and ranks the methods most likely to start producing invalids in the next six months.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================
+     The nav CTA on every function page points at the reply card, not the
+     calendar. This reader arrived from an outbound email and is still
+     deciding whether I am credible. One CTA per page.
+================================================================= -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Kyle Langham Consulting home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <span><span class="n">Kyle Langham</span><span class="t">Consulting</span></span>
+    </a>
+
+    <button class="navtoggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu">
+      <svg class="ico-bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="ico-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="navlinks" id="navlinks">
+      <div class="navgroup">
+        <a class="navgroup-label" href="index.html#functions">Functions</a>
+        <div class="navmenu">
+          <a href="manufacturing.html">Manufacturing</a>
+          <a href="quality-assurance.html">Quality Assurance</a>
+          <a href="quality-control.html">Quality Control</a>
+          <a href="analytical-development.html">Analytical Development</a>
+          <a href="process-development.html">Process Development</a>
+          <a href="tech-transfer.html">Tech Transfer</a>
+          <a href="regulatory-affairs.html">Regulatory Affairs</a>
+        </div>
+      </div>
+      <a href="diagnostic.html">Diagnostic</a>
+      <a href="for-it.html">For IT</a>
+      <a href="about.html">About</a>
+      <a class="navcta" href="#reply">Send me a workflow</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============================ PAGE HEAD ============================ -->
+<header class="phead">
+  <div class="wrap">
+    <div class="eyebrow">Quality Control - Invalid Assays</div>
+    <h1>Your invalid assays are a pattern. You are working them one at a time.</h1>
+    <p class="standfirst">An agent that lists every invalid result in the year and tells you which method is costing you, works a single invalid through to a draft investigation report, and ranks the assays whose system suitability margin is eroding toward the invalids they have not produced yet.</p>
+  </div>
+</header>
+
+<!-- ==================== 1. THE RECURRING PAIN ==================== -->
+<section class="block" style="padding-top:30px;">
+  <div class="wrap">
+    <div class="eyebrow">What this looks like today</div>
+    <h2 class="lede">Every invalid gets investigated. Nobody investigates the invalids.</h2>
+    <div class="prose" style="margin-top:18px;">
+      <p>An invalid run is not a failing product, it is a failing test, and that distinction is what makes it easy to absorb. The analyst repeats it, the result comes back fine, a Phase Ia record gets opened and closed, and release slips by a few days. Each one is small enough to swallow. Nobody adds them up.</p>
+      <p>So the aggregate never gets built. Asking which method produced the most invalid results this year means pulling every run from LIMS, deciding what counts as invalid versus repeated versus cancelled, joining to the lab investigations that were opened against them, and reconciling the two. It is a week of somebody's time, so it gets done for the annual review and not otherwise.</p>
+      <p>The individual investigation has the opposite problem. It is urgent, so it gets done fast by whoever is free, and the quality of the write-up tracks. Analytical evidence, disposition history, training currency and the SOP revision in force at the time sit in four systems. The pressure runs toward finding an assignable cause, because finding one lets you invalidate and move.</p>
+      <p>And the third thing does not happen at all. No one is watching a passing method lose its margin. System suitability that clears the criterion by a hair every time is a clean record, right up until it is not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. THE DEMO ==================== -->
+<section class="block band">
+  <div class="wrap">
+    <div class="demo">
+      <div class="eyebrow">The demo</div>
+      <h2 class="lede" style="max-width:22em;">List them, work one, then find the next one before it happens.</h2>
+
+      <!-- ─── VIDEO SLOT ────────────────────────────────────────────────────
+           Live embed. To swap the video, replace the id in the iframe src below.
+           REPLACE_ME: id below is a placeholder, swap for the QC invalid recording.
+      ──────────────────────────────────────────────────────────────────── -->
+      <div class="video-wrap" style="margin-top:22px;">
+
+        <iframe src="https://www.youtube-nocookie.com/embed/PkICSP4Iht8?rel=0"
+                title="Agent counting, investigating and forecasting invalid QC assay results"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+
+      </div>
+      <!-- ─── END VIDEO SLOT ──────────────────────────────────────────── -->
+
+      <p class="demo-cap">Three passes on the same body of laboratory data. First the agent lists every invalid result recorded in 2026. Then it takes one of them and works the investigation end to end, reaching an invalidate or result-stands call and drafting the report. Then it turns the same data forward and ranks the assays whose suitability margin is trending toward the acceptance limit, which is the list of methods most likely to produce an invalid in the next six months.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. UNDER THE HOOD ==================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">Under the hood</div>
+    <h2 class="lede">The three questions need the same four systems and different reasoning.</h2>
+    <div class="prose" style="margin-top:18px;">
+      <p>Listing is a data problem. Investigating is an evidence problem. Forecasting is a trend problem. They share a substrate, which is why one agent can perform all three.</p>
+    </div>
+    <ul class="doclist" style="margin-top:20px;max-width:var(--readw);">
+          <li><b>LIMS</b> for every run, its result, its status and its system suitability record, including the runs that were quietly repeated without a formal invalid ever being raised. Those matter to the count and they are the ones a manual pull misses.</li>
+          <li><b>QMS</b> for the lab investigation and its disposition, so the agent reads what was concluded at the time rather than re-deciding it, and can tell you where the same root cause has already been closed twice before.</li>
+          <li><b>eDMS</b> for analyst training currency and the SOP revision actually in force on the date of the run. This is the check that gets skipped under pressure and it is the one that decides whether an assignable cause is real.</li>
+          <li><b>Separating a method problem from a criterion problem from an execution problem.</b> An assay failing because the method is not robust, an assay failing because the acceptance criterion was set too tight for it, and an assay failing because of how it was run all look identical in the invalid count and need three different responses.</li>
+          <li><b>Suitability margin trended per criterion</b>, not pass or fail. A method clearing its limit by two percent on every run has a spotless record and no headroom, and that is the signal the forward-looking pass is built on.</li>
+    </ul>
+    <p class="pnote">The agent will not draft a CAPA where the investigation found no assignable cause. That is the most common thing I see done wrong, and it is the one behaviour I hard-coded against: a corrective action attached to a cause you did not establish is a finding waiting to be written. Invalidation is a QC decision and the agent proposes it rather than making it. The disposition, the CAPA and the call on whether a criterion should be revised stay with your people.</p>
+  </div>
+</section>
+
+<!-- ==================== 4. WHERE THE TIME GOES ==================== -->
+<section class="block band">
+  <div class="wrap">
+    <div class="eyebrow">Where the time goes</div>
+    <h2 class="lede">The first two get faster. The third one starts existing.</h2>
+
+    <div class="timegrid">
+      <div class="tcol now">
+        <div class="k">Today</div>
+        <div class="t">3-5<small> days</small></div>
+        <ul>
+          <li>Per investigation, most of it spent assembling evidence rather than reasoning about it</li>
+          <li>The invalid rate by method is a week of work, so it lands once a year</li>
+          <li>Training currency and SOP revision checked when there is time to check them</li>
+          <li>Nothing at all watching the methods that have not failed yet</li>
+        </ul>
+      </div>
+      <div class="tcol next">
+        <div class="k">With an agent</div>
+        <div class="t">20<small> min</small></div>
+        <ul>
+          <li>Evidence assembled across four systems in one pass, with the draft report written</li>
+          <li>Invalid rate by method available any day you want it, not once a year</li>
+          <li>Every check run every time, including the ones that are inconvenient</li>
+          <li>A ranked watchlist of assays losing margin, which is new information</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="honest">These figures come from my demo environment running on synthetic CMC data. They are not client results. The "today" column is what I watched teams actually do across my career; the "with an agent" column is measured on the demo, against a data model built to be representative rather than against your systems.</p>
+  </div>
+</section>
+
+<!-- ==================== 5. WHAT IT TAKES ==================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">What it takes to get there</div>
+    <h2 class="lede">The count is only as good as what your LIMS calls an invalid.</h2>
+    <div class="prose" style="margin-top:18px;">
+      <p>Most of the difficulty here is definitional rather than technical. Sites differ on whether a repeated run is flagged, whether a cancelled sequence leaves a record, and whether system suitability is stored as a captured value or as a pass flag with the number left in the instrument software. A pass flag with no value behind it kills the forward-looking pass entirely, because there is no margin to trend. That is worth knowing before anyone builds anything, not after.</p>
+      <p>The reactive investigation needs less. If the analytical record, the QMS disposition and the training record are reachable and can be joined on something stable, it works. The Data Diagnostic establishes which of these is true at your site and prices the path from there. Two to three weeks, fixed fee, before you commit to a build that depends on it.</p>
+    </div>
+    <p style="margin-top:18px;"><a href="diagnostic.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;font-size:15px;">The Data Diagnostic, including the price <span aria-hidden="true">&rarr;</span></a></p>
+    <p class="pnote">Your IT and quality systems group will want the architecture, the read and write paths, the Part 11 position and the validation approach. That is all written down on the <a href="for-it.html" style="color:var(--accent-ink);font-weight:600;text-decoration:none;">governance and validation page</a>, in a form you can forward or print.</p>
+  </div>
+</section>
+
+<!-- ==================== 6. CTA ==================== -->
+<section class="block" style="padding-top:8px;">
+  <div class="wrap">
+
+    <div class="reply" id="reply">
+      <div class="eyebrow">Try this on your own workflow</div>
+      <h2>Send me a workflow.</h2>
+      <p>Tell me the process that eats your team's week. I'll record an agent running it on your data model and send it back. No call required.</p>
+      <a class="mail" href="mailto:kyle@kylelangham.com?subject=Quality%20control%20workflow">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>
+        kyle@kylelangham.com
+      </a>
+      <p class="nocall">No form, no gate, no email capture.</p>
+    </div>
+
+    <!-- quiet secondary route, deliberately not styled as a button -->
+    <p class="quiet"><a href="https://calendar.app.google/UYtFLWUkQTvVpbHb7">Would rather talk it through? 30 minutes on your workflow, no pitch.</a></p>
+
+    <div class="also">
+      <div class="k">Other functions</div>
+      <ul>
+        <li><a href="manufacturing.html">Manufacturing</a></li>
+        <li><a href="quality-assurance.html">Quality Assurance</a></li>
+        <li><a href="analytical-development.html">Analytical Development</a></li>
+        <li><a href="process-development.html">Process Development</a></li>
+        <li><a href="tech-transfer.html">Tech Transfer</a></li>
+        <li><a href="regulatory-affairs.html">Regulatory Affairs</a></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Kyle Langham Consulting home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <span><span class="n">Kyle Langham</span><span class="t">Consulting</span></span>
+    </a>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a><span class="dot"></span>
+      <a href="https://www.linkedin.com/in/kylelangham/">LinkedIn</a><span class="dot"></span>
+      <a href="https://intelligence-layer.com">The Intelligence Layer</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
