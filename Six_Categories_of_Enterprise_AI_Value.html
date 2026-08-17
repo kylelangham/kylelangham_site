@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Six Categories of Enterprise AI Value — Kyle Langham Consulting</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.48in 0.62in 0.42in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px;}
+  .title{font-size:28px;line-height:1.06;font-weight:700;letter-spacing:-.022em;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;padding-top:4px;}
+  .logo .mark{width:27px;height:27px;flex:none;}
+  .logo .wm .n{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+  /* intro */
+  .intro{display:grid;grid-template-columns:1.75fr 1fr;gap:26px;padding:10px 0 9px;align-items:center;}
+  .intro p{font-size:11.6px;color:var(--ink-2);line-height:1.58;}
+  .intro p + p{margin-top:7px;}
+  .spectrum .sl{display:flex;justify-content:space-between;font-size:8.6px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .spectrum .bar{height:5px;border-radius:3px;background:linear-gradient(90deg,#C8CBD2 0%,#7FA9F2 55%,#0A6CFF 100%);}
+  .spectrum .cap{font-size:9.4px;color:var(--muted);margin-top:7px;line-height:1.45;}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:0;}
+  .cardbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 14px 0;display:flex;flex-direction:column;}
+  .chead{display:flex;align-items:flex-start;gap:11px;}
+  .ico{width:34px;height:34px;flex:none;border-radius:9px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;}
+  .ico svg{width:19px;height:19px;stroke:var(--accent);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .htext{flex:1;min-width:0;}
+  .htext h3{font-size:13.2px;font-weight:650;letter-spacing:-.012em;line-height:1.2;}
+  .htext .kick{font-size:9.6px;letter-spacing:.03em;color:var(--muted);margin-top:3px;}
+  .num{font-size:11px;font-weight:700;color:#D2D5DB;letter-spacing:-.01em;flex:none;}
+  .focus{font-size:11px;color:var(--ink-2);line-height:1.5;margin-top:7px;}
+  .exlabel{font-size:8.6px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:7px 0 3px;}
+  .ex{font-size:10.4px;color:var(--ink-2);line-height:1.55;}
+  .ex b{font-weight:400;color:var(--muted);}
+  .metric{margin:9px -14px 0;padding:7px 14px;border-top:1px solid var(--line-2);background:#FAFBFD;border-radius:0 0 13px 13px;display:flex;gap:8px;align-items:baseline;}
+  .metric .mk{font-size:8.6px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;flex:none;}
+  .metric .mv{font-size:10.2px;color:var(--ink-2);line-height:1.4;}
+
+  /* footer */
+  .spacer{flex:1;}
+  .foot{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .foot .contact{display:flex;gap:18px;font-size:10.2px;color:var(--muted);align-items:center;}
+  .foot .contact a{color:var(--ink-2);text-decoration:none;}
+  .foot .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+
+  @page{size:Letter;margin:0;}
+  @media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Executive Framework</div>
+      <h1 class="title">The Six Categories of<br>Enterprise AI Value</h1>
+    </div>
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+  </header>
+
+  <div class="intro">
+    <div>
+      <p>Too much of the dialogue around AI is on cost-savings. Cost is only one lane out of six. These six categories cover the full range of where AI actually creates value, ordered from internal operational gain through to top-line transformation.</p>
+      <p>Successful AI maturity efforts may start in one or two categories, but should expand to all six over time.</p>
+    </div>
+    <div class="spectrum">
+      <div class="sl"><span>Internal efficiency</span><span>External growth</span></div>
+      <div class="bar"></div>
+      <div class="cap">The first three compound internal margin. The next two show up in customer and revenue numbers. The last one is what maintains the value long term.</div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="cardbox">
+      <div class="chead">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 4 L11.5 13.5"/><path d="M15 4h6v6"/><path d="M3 9h5M3 14h7M3 19h9"/></svg></div>
+        <div class="htext"><h3>Velocity &amp; Innovation</h3><div class="kick">Accelerated time to market</div></div>
+        <div class="num">01</div>
+      </div>
+      <div class="focus">Shorten the distance between an idea and a working version of it across product, engineering, and design.</div>
+      <div class="exlabel">In practice</div>
+      <div class="ex">Rapid code and UI prototyping <b>·</b> Dynamic wireframing <b>·</b> Synthetic data for early testing <b>·</b> Automated asset generation for campaigns</div>
+      <div class="metric"><span class="mk">Measured by</span><span class="mv">Product cycle time and R&amp;D iteration cost</span></div>
+    </div>
+
+    <div class="cardbox">
+      <div class="chead">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.4 19.5c0-3.1 2.5-5.4 5.6-5.4s5.6 2.3 5.6 5.4"/><path d="M18.5 13.5V7M16 9.5 18.5 7 21 9.5"/></svg></div>
+        <div class="htext"><h3>Workforce Productivity</h3><div class="kick">Doing more with the team you have</div></div>
+        <div class="num">02</div>
+      </div>
+      <div class="focus">Hand off high-volume, repetitive thinking work so people spend their hours where judgment actually matters.</div>
+      <div class="exlabel">In practice</div>
+      <div class="ex">Developer code completion <b>·</b> Document summarization <b>·</b> First-draft legal and compliance review <b>·</b> Meeting synthesis and action capture</div>
+      <div class="metric"><span class="mk">Measured by</span><span class="mv">Hours returned per employee per week; cost to serve</span></div>
+    </div>
+
+    <div class="cardbox">
+      <div class="chead">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2"/></svg></div>
+        <div class="htext"><h3>Augmented Decision-Making</h3><div class="kick">Quality and precision</div></div>
+        <div class="num">03</div>
+      </div>
+      <div class="focus">Turn scattered, unstructured information into a decision faster and with fewer blind spots than manual analysis allows.</div>
+      <div class="exlabel">In practice</div>
+      <div class="ex">Predictive maintenance on physical assets <b>·</b> Real-time fraud detection <b>·</b> Charge capture and billing audit <b>·</b> Multi-source enterprise search</div>
+      <div class="metric"><span class="mk">Measured by</span><span class="mv">Error rates, downside risk, mean time to decision</span></div>
+    </div>
+
+    <div class="cardbox">
+      <div class="chead">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M20.5 12.2c0 3.6-3.8 6.5-8.5 6.5-.9 0-1.8-.1-2.6-.3L4.5 20l1.3-3.4c-1.4-1.2-2.3-2.7-2.3-4.4 0-3.6 3.8-6.5 8.5-6.5s8.5 2.9 8.5 6.5z"/><path d="M12 9.3l.85 1.85L14.7 12l-1.85.85L12 14.7l-.85-1.85L9.3 12l1.85-.85z"/></svg></div>
+        <div class="htext"><h3>Experience Enhancement</h3><div class="kick">Personalization and friction removal</div></div>
+        <div class="num">04</div>
+      </div>
+      <div class="focus">Make every interaction context-aware, for customers on the outside and employees on the inside.</div>
+      <div class="exlabel">In practice</div>
+      <div class="ex">Tier-1 support orchestration <b>·</b> Personalized recommendations <b>·</b> Onboarding copilots for new hires <b>·</b> Natural-language internal reporting</div>
+      <div class="metric"><span class="mk">Measured by</span><span class="mv">CSAT and NPS, churn, ticket resolution time</span></div>
+    </div>
+
+    <div class="cardbox">
+      <div class="chead">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4v15.5h16"/><path d="M7.5 15.5 11 11l3 2.5L20 7"/><path d="M20 11V7h-4"/></svg></div>
+        <div class="htext"><h3>Revenue &amp; New Capability</h3><div class="kick">Top-line expansion</div></div>
+        <div class="num">05</div>
+      </div>
+      <div class="focus">Monetize AI directly through new product features, smarter pricing models, and sharper commercial targeting.</div>
+      <div class="exlabel">In practice</div>
+      <div class="ex">AI-native product add-ons <b>·</b> Dynamic price optimization <b>·</b> Lead scoring and signal intelligence <b>·</b> Churn-risk triggers</div>
+      <div class="metric"><span class="mk">Measured by</span><span class="mv">Net revenue retention, lifetime value, win rate</span></div>
+    </div>
+
+    <div class="cardbox">
+      <div class="chead">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+        <div class="htext"><h3>Governance, Risk &amp; Resilience</h3><div class="kick">Protection</div></div>
+        <div class="num">06</div>
+      </div>
+      <div class="focus">Catch compliance drift, data exposure, and system risk while they are still cheap to fix.</div>
+      <div class="exlabel">In practice</div>
+      <div class="ex">Continuous regulatory compliance tracking <b>·</b> Automated PII redaction <b>·</b> Contract risk highlighting <b>·</b> Security telemetry analysis</div>
+      <div class="metric"><span class="mk">Measured by</span><span class="mv">Compliance penalties, audit prep time, breach response</span></div>
+    </div>
+
+  </div>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <span>(240) 848-2562</span><span class="dot"></span>
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
