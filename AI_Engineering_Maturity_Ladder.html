@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineering Maturity Ladder — Kyle Langham Consulting</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.48in 0.62in 0.42in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px;}
+  .title{font-size:28px;line-height:1.06;font-weight:700;letter-spacing:-.022em;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;padding-top:4px;}
+  .logo .mark{width:27px;height:27px;flex:none;}
+  .logo .wm .n{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+  /* intro */
+  .intro{display:grid;grid-template-columns:1.75fr 1fr;gap:26px;padding:11px 0 10px;align-items:center;}
+  .intro p{font-size:11.6px;color:var(--ink-2);line-height:1.58;}
+  .intro p + p{margin-top:7px;}
+  .spectrum .sl{display:flex;justify-content:space-between;font-size:8.6px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .spectrum .bar{height:5px;border-radius:3px;background:linear-gradient(90deg,#C8CBD2 0%,#7FA9F2 55%,#0A6CFF 100%);}
+  .spectrum .cap{font-size:9.4px;color:var(--muted);margin-top:7px;line-height:1.45;}
+
+  /* rungs */
+  .rungs{display:flex;flex-direction:column;gap:9px;}
+  .rung{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px 0;display:flex;gap:14px;align-items:flex-start;}
+  .step{width:34px;flex:none;display:flex;flex-direction:column;align-items:center;padding-top:1px;}
+  .step .n{width:26px;height:26px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;letter-spacing:-.01em;}
+  .step .tick{width:2px;flex:1;background:var(--line-2);margin-top:6px;border-radius:2px;}
+  .body{flex:1;min-width:0;padding-bottom:0;}
+  .rhead{display:flex;align-items:baseline;gap:9px;}
+  .rhead h3{font-size:13.4px;font-weight:650;letter-spacing:-.012em;line-height:1.2;}
+  .rhead .kick{font-size:9.6px;letter-spacing:.03em;color:var(--muted);}
+  .focus{font-size:11px;color:var(--ink-2);line-height:1.5;margin-top:5px;}
+  .exlabel{font-size:8.6px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:7px 0 3px;}
+  .ex{font-size:10.4px;color:var(--ink-2);line-height:1.55;}
+  .ex b{font-weight:400;color:var(--muted);}
+  .adv{margin:9px -16px 0;padding:7px 16px 7px 14px;border-top:1px solid var(--line-2);background:#FAFBFD;border-radius:0 0 13px 0;display:flex;gap:8px;align-items:baseline;}
+  .adv .mk{font-size:8.6px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;flex:none;}
+  .adv .mv{font-size:10.2px;color:var(--ink-2);line-height:1.4;}
+  .rung.last .step .tick{display:none;}
+  .rung.last .adv .mk{color:var(--muted);}
+
+  /* diagnostic */
+  .diag{margin-top:11px;background:var(--ink);color:#fff;border-radius:14px;padding:13px 18px;}
+  .diag .label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:9px;}
+  .qs{display:grid;grid-template-columns:1fr 1fr;gap:7px 22px;}
+  .q{font-size:10.5px;color:rgba(255,255,255,.9);line-height:1.45;padding-left:14px;position:relative;}
+  .q::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--accent);}
+
+  /* footer */
+  .spacer{flex:1;}
+  .foot{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .foot .contact{display:flex;gap:18px;font-size:10.2px;color:var(--muted);align-items:center;}
+  .foot .contact a{color:var(--ink-2);text-decoration:none;}
+  .foot .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+
+  @page{size:Letter;margin:0;}
+  @media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Engineering Framework</div>
+      <h1 class="title">AI Engineering<br>Maturity Ladder</h1>
+    </div>
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+  </header>
+
+
+
+  <div class="rungs">
+
+    <div class="rung">
+      <div class="step"><div class="n">1</div><div class="tick"></div></div>
+      <div class="body">
+        <div class="rhead"><h3>Individual use, no shared standards</h3><span class="kick">Ad hoc</span></div>
+        <div class="focus">Engineers use AI tools on their own terms. Output quality tracks individual skill at managing context, nothing transfers between people.</div>
+        <div class="exlabel">Looks like</div>
+        <div class="ex">Prompting knowledge lives in one person's history <b>·</b> No repo-level instruction file, or one written once and never pruned <b>·</b> Tool choice varies by engineer <b>·</b> Bimodal results nobody can explain</div>
+        <div class="adv"><span class="mk">To advance</span><span class="mv">Write the repo instruction file and put it under PR review like any other source file.</span></div>
+      </div>
+    </div>
+
+    <div class="rung">
+      <div class="step"><div class="n">2</div><div class="tick"></div></div>
+      <div class="body">
+        <div class="rhead"><h3>Shared instruction files, review policy stated</h3><span class="kick">Consistent</span></div>
+        <div class="focus">Context is a versioned team asset and the review bar is explicit. The author of a PR owns every line in it regardless of who typed it.</div>
+        <div class="exlabel">Looks like</div>
+        <div class="ex">Build, test and lint commands in the instruction file so the agent verifies itself <b>·</b> Directory-level files where subsystems differ <b>·</b> An explicit do-not-touch list <b>·</b> Updating conventions includes updating the file</div>
+        <div class="adv"><span class="mk">To advance</span><span class="mv">Define agent write scope, credential scope, and what CI blocks before a human ever sees it.</span></div>
+      </div>
+    </div>
+
+    <div class="rung">
+      <div class="step"><div class="n">3</div><div class="tick"></div></div>
+      <div class="body">
+        <div class="rhead"><h3>Shared command library, permissions defined, CI gates enforced</h3><span class="kick">Governed</span></div>
+        <div class="focus">The org's best prompts are checked-in assets, agent authority is bounded by design rather than by convention, and machine-checkable failures never reach human review.</div>
+        <div class="exlabel">Looks like</div>
+        <div class="ex">Agents push to branches, never to main, and never self-merge <b>·</b> Short-lived scoped tokens, never production <b>·</b> Approved MCP / tool registry, with fetched content treated as untrusted input <b>·</b> Tests derived from spec, not from the implementation</div>
+        <div class="adv"><span class="mk">To advance</span><span class="mv">Capture a baseline now (cycle time, revert rate, churn, PR queue depth) before adoption deepens.</span></div>
+      </div>
+    </div>
+
+    <div class="rung last">
+      <div class="step"><div class="n">4</div></div>
+      <div class="body">
+        <div class="rhead"><h3>Measured against a baseline, patterns documented, adoption deliberate</h3><span class="kick">Deliberate</span></div>
+        <div class="focus">Change is evaluated against evidence and baseline, and the practices that produce results are transferable instead of resident in a few engineers.</div>
+        <div class="exlabel">Looks like</div>
+        <div class="ex">Cycle time, change failure rate, code churn and review latency trended against a pre-adoption baseline <b>·</b> Named pattern-library owners <b>·</b> Champions given explicit time to transfer their working loop <b>·</b> Acceptance rate and seat utilization ignored</div>
+        <div class="adv"><span class="mk">Watch for</span><span class="mv">Review capacity, not generation, is the ceiling — it shows up as queue depth long before it shows up as an incident.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="diag">
+    <div class="label">Four questions that place a team on the ladder</div>
+    <div class="qs">
+      <div class="q">What is in your repo instruction files today, and when were they last pruned?</div>
+      <div class="q">What can an agent write to without a human in the path?</div>
+      <div class="q">How does your PR queue depth compare to six months ago?</div>
+      <div class="q">Who is getting the most out of this, and what are they doing differently?</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
