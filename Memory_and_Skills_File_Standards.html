@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standards for Memory and Skills Files — Kyle Langham Consulting</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+    --flag:#B23B00; --flag-soft:#FCEEE7; --flag-line:#F0C9B5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.48in 0.62in 0.42in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px;}
+  .title{font-size:27px;line-height:1.06;font-weight:700;letter-spacing:-.022em;}
+  .title small{display:block;font-size:11.5px;font-weight:400;color:var(--muted);letter-spacing:0;margin-top:7px;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;padding-top:4px;}
+  .logo .mark{width:27px;height:27px;flex:none;}
+  .logo .wm .n{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+  .contd{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:6px;}
+
+  /* section headings */
+  .shead{display:flex;align-items:baseline;gap:11px;margin:14px 0 9px;}
+  .shead .bar{width:3px;height:15px;background:var(--accent);border-radius:2px;flex:none;position:relative;top:2px;}
+  .shead h2{font-size:15px;font-weight:700;letter-spacing:-.015em;}
+  .shead .note{font-size:10.4px;color:var(--muted);}
+  .lede{font-size:11.4px;color:var(--ink-2);line-height:1.58;}
+
+  /* scope table */
+  .scope{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:11px;}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px 11px;display:flex;flex-direction:column;}
+  .sc .tier{font-size:8.6px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:5px;}
+  .sc .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:var(--ink);background:#F1F1F4;border:1px solid var(--line-2);border-radius:5px;padding:3px 6px;display:inline-block;margin-bottom:6px;align-self:flex-start;}
+  .sc .d{font-size:10.2px;color:var(--ink-2);line-height:1.45;}
+  .sc .vc{font-size:9.4px;color:var(--muted);margin-top:auto;padding-top:7px;}
+  .sc .vc b{color:var(--ink-2);font-weight:600;}
+
+  /* two-col cards */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px;}
+  .cols.wide{grid-template-columns:1.15fr 1fr;}
+  .cardbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 15px;}
+  .cardbox h3{font-size:12.6px;font-weight:650;letter-spacing:-.012em;margin-bottom:7px;}
+  .cardbox h3 span{font-weight:400;color:var(--muted);font-size:10.2px;}
+  ul{list-style:none;}
+  li{font-size:10.7px;color:var(--ink-2);line-height:1.5;padding-left:12px;position:relative;margin-bottom:5px;}
+  li:last-child{margin-bottom:0;}
+  li::before{content:"";position:absolute;left:0;top:6.5px;width:4px;height:4px;border-radius:50%;background:var(--accent);}
+  li b{font-weight:650;color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9.6px;background:#F1F1F4;border:1px solid var(--line-2);border-radius:4px;padding:1px 4px;color:var(--ink);}
+
+  .no li::before{background:#C8CBD2;}
+  .cardbox.neg{background:#F7F7F9;}
+
+  /* flag box */
+  .flagbox{background:var(--flag-soft);border:1px solid var(--flag-line);border-radius:14px;padding:12px 15px;margin-top:11px;}
+  .flagbox h3{font-size:12.4px;font-weight:650;color:var(--flag);margin-bottom:6px;}
+  .flagbox li::before{background:var(--flag);}
+  .flagbox li{color:#6B4128;}
+  .flagbox li b{color:var(--flag);}
+
+  /* dark strip */
+  .strip{margin-top:12px;background:var(--ink);color:#fff;border-radius:14px;padding:13px 18px;}
+  .strip .label{font-size:9.6px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:9px;}
+  .flow{display:flex;align-items:stretch;gap:0;}
+  .fstep{flex:1;padding-right:14px;}
+  .fstep + .fstep{padding-left:14px;border-left:1px solid rgba(255,255,255,.14);}
+  .fstep .fk{font-size:11px;font-weight:650;letter-spacing:-.005em;margin-bottom:3px;}
+  .fstep .fv{font-size:9.8px;color:rgba(255,255,255,.72);line-height:1.42;}
+  .strip .tail{font-size:10px;color:rgba(255,255,255,.72);margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.14);line-height:1.45;}
+  .strip .tail b{color:#fff;font-weight:600;}
+
+  /* checklist */
+  .check{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;margin-top:9px;}
+  .check div{font-size:10.4px;color:var(--ink-2);line-height:1.45;padding-left:16px;position:relative;}
+  .check div::before{content:"";position:absolute;left:0;top:2px;width:9px;height:9px;border:1.4px solid #C2C6CE;border-radius:2.5px;}
+
+  /* footer */
+  .spacer{flex:1;}
+  .foot{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .foot .contact{display:flex;gap:18px;font-size:10.2px;color:var(--muted);align-items:center;}
+  .foot .contact a{color:var(--ink-2);text-decoration:none;}
+  .foot .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+
+  @page{size:Letter;margin:0;}
+  @media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;page-break-after:always;} .page:last-child{page-break-after:auto;} }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 ============ -->
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Engineering Framework</div>
+      <h1 class="title">Standards for Memory<br>and Skills Files
+        <small>Making agent context a reviewed team asset instead of private tribal knowledge</small>
+      </h1>
+    </div>
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+  </header>
+  <p class="lede">Note - this document assumes Claude.  Other primitives: AGENTS.md (ChatGPT), .cursor/rules/ (Cursor)</p>
+  <div class="shead"><div class="bar"></div><h2>Know which file you are writing</h2><span class="note">Wrong tier is a common failure problem</span></div>
+  <p class="lede">The dividing question is not importance, it is <i>who is this true for</i>. Anything true for everyone who touches the repo belongs in version control. Anything true only about one person's laptop does not.  Be mindful of contradictory statements.</p>
+
+  <div class="scope">
+    <div class="sc">
+      <div class="tier">Repo root</div>
+      <div class="path">./CLAUDE.md</div>
+      <div class="d">What is true about this codebase for everyone. Commands, invariants, conventions, do-not-touch list.</div>
+      <div class="vc"><b>Checked in.</b> Reviewed.</div>
+    </div>
+    <div class="sc">
+      <div class="tier">Directory</div>
+      <div class="path">src/&lt;area&gt;/CLAUDE.md</div>
+      <div class="d">Rules that differ by subsystem. Firmware, data pipeline and the web tier rarely share review or test norms.</div>
+      <div class="vc"><b>Checked in.</b> Area owners.</div>
+    </div>
+    <div class="sc">
+      <div class="tier">User scope</div>
+      <div class="path">~/.claude/CLAUDE.md</div>
+      <div class="d">How this engineer works across every repo. Personal defaults, preferred output style, local tooling paths.</div>
+      <div class="vc"><b>Not checked in.</b> Templated and personalized.</div>
+    </div>
+    <div class="sc">
+      <div class="tier">Local override</div>
+      <div class="path">./CLAUDE.local.md</div>
+      <div class="d">One person's temporary situation in one repo. A broken dependency, a migration in flight, a scratch branch.</div>
+      <div class="vc"><b>Gitignored.</b> Short-lived.</div>
+    </div>
+  </div>
+
+  <div class="shead"><div class="bar"></div><h2>Repo memory files</h2><span class="note">Treat as critical, not just documentation</span></div>
+
+  <div class="cols">
+    <div class="cardbox">
+      <h3>What gets included</h3>
+      <ul>
+        <li><b>Exact commands.</b> Build, test, lint, typecheck, single-test invocation. An agent that can verify its own work is worth more than one that writes better first drafts.</li>
+        <li><b>Invariants with the reason attached.</b> "All timestamps stored UTC, converted at the edge" beats "be careful with time zones." A rule without a rationale gets rationalized around.</li>
+        <li><b>The do-not-touch list.</b> Generated code, vendored dependencies, applied migrations, protobuf output.</li>
+        <li><b>Non-obvious local conventions.</b> The pattern a competent new hire would violate on day one because it contradicts the framework default.</li>
+        <li><b>Known traps.</b> The test that fails only in CI, the service that must be running first.</li>
+      </ul>
+    </div>
+    <div class="cardbox neg">
+      <h3>What does not <span>— it competes for attention</span></h3>
+      <ul class="no">
+        <li><b>Anything derivable from the code.</b> Directory tours and dependency lists go stale within a sprint and the agent can read the tree.</li>
+        <li><b>General programming advice.</b> "Write clean code," "handle errors properly." Zero behavioural effect, real attention cost.</li>
+        <li><b>Onboarding prose.</b> Team history, product background, links to Confluence. Different audience, different document.</li>
+        <li><b>Aspirations.</b> Standards you have not adopted yet produce output that does not match the repo it lands in.</li>
+        <li><b>Secrets or internal hostnames.</b> This file is committed, read by tools, and pasted into issues.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cols wide">
+    <div class="cardbox">
+      <h3>Keeping it working</h3>
+      <ul>
+        <li><b>Directives, not description.</b> Imperative voice, one instruction per line, testable. If you cannot tell whether the agent complied, rewrite it.</li>
+        <li><b>Prune on a schedule.</b> Growth is the default and every stale line degrades the live ones. A line that has never changed an outcome is costing you in attention.</li>
+        <li><b>Fix in the file, not in the chat.</b> When an agent does the wrong thing, the durable repair is a line in the memory file. Correcting it in conversation fixes it for one person once.</li>
+        <li><b>Watch for contradiction.</b> Bloat rarely reads as wrong, it reads as two rules that cannot both hold.</li>
+        <li><b>Factor shared fragments.</b> Where a standard spans repos, import a common file rather than copying it. Copies diverge silently.</li>
+      </ul>
+    </div>
+    <div class="cardbox">
+      <h3>Ownership and review</h3>
+      <ul>
+        <li><b>CODEOWNERS entry.</b> No owner means no pruning.</li>
+        <li><b>Reviewed like an API change.</b> One edit changes behaviour for everyone, on every task, silently.</li>
+        <li><b>Definition of done includes it.</b> Change a convention, update the file in the same PR.</li>
+        <li><b>Announce material edits.</b> People will otherwise attribute the change to the model.</li>
+        <li><b>Need help getting started?</b> Point a chat window at your repo and ask your model to create a repo memory file.  Personalize from there.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flagbox">
+    <h3>Failure modes</h3>
+    <ul>
+      <li><b>The write-once file.</b> Created in a burst of enthusiasm, never touched again.</li>
+      <li><b>The kitchen sink.</b> Everything anyone ever wished the agent knew. Instructions compete, adherence becomes unpredictable, and the file is now too big for anyone to review honestly.</li>
+      <li><b>Rules with no consequence.</b> If nothing in CI or review catches a violation, the instruction is a suggestion. State it, then gate it.</li>
+    </ul>
+  </div>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============ PAGE 2 ============ -->
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Engineering Framework</div>
+      <h1 class="title">Local Harness, Skills,<br>and Promotion</h1>
+    </div>
+    <div class="contd">Page 2 of 2</div>
+  </header>
+  <div class="shead"><div class="bar"></div><h2>Local files and harness standardization</h2><span class="note">The goal is identical behaviour, not identical laptops</span></div>
+  <p class="lede">Local configuration is where teams lose reproducibility. For example, the same prompt against the same repo produces different results for two engineers. You cannot check these files in, so standardize the way you standardize dotfiles: ship a reviewed template, make adoption one command, and audit for drift.</p>
+
+  <div class="cols wide">
+    <div class="cardbox">
+      <h3>How to standardize what you cannot commit</h3>
+      <ul>
+        <li><b>Commit a template, not the file.</b> Keep <code>templates/claude-user.md</code> and a settings template in the repo. The install step copies them into user scope. The template is reviewed; the copy is not.</li>
+        <li><b>Version the template.</b> Put a version line at the top. A one-line check in CI or the dev script tells people when theirs is behind.</li>
+        <li><b>Bootstrap in one command.</b> Add it to the existing dev setup script. Any standard requiring a wiki page and manual steps reaches roughly half the team.</li>
+        <li><b>Split team settings from personal.</b> Checked-in project settings carry permission rules, hooks and approved tool servers. The gitignored local settings file carries only paths and personal preference.</li>
+        <li><b>Audit for drift quarterly.</b> Ask people to diff their user file against the template. Recurring local overrides are a signal the template is wrong — promote them, do not police them.</li>
+      </ul>
+    </div>
+    <div class="cardbox">
+      <h3>What belongs in the local tier</h3>
+      <ul>
+        <li>Permission allowlists and denylists for shell commands the agent may run unattended</li>
+        <li>Approved tool and MCP server list, with anything reaching production or customer data excluded by default</li>
+        <li>Environment variable names and local service ports — <b>names, never values</b></li>
+        <li>Output preferences: verbosity, commit message style, whether to open PRs automatically</li>
+        <li>Hooks that run formatters or tests after edits, so every engineer's agent self-checks the same way</li>
+      </ul>
+      <h3 style="margin-top:9px;">What never does</h3>
+      <ul class="no">
+        <li>Credentials, tokens or keys in any form, including "temporary" ones</li>
+        <li>Rules about the codebase itself — those belong in the repo file where review can see them</li>
+      </ul>
+    </div>
+  </div>
+  <div class="shead"><div class="bar"></div><h2>Skills files</h2><span class="note">A memory file shapes every task; a skill fires on one</span></div>
+
+  <div class="cols wide">
+    <div class="cardbox">
+      <h3>Writing one that actually fires</h3>
+      <ul>
+        <li><b>The description is the product.</b> It is the only part read when deciding whether to load the skill. Spend more time on it than on the body.</li>
+        <li><b>Trigger on the words people really use.</b> List the phrasings verbatim, including sloppy ones. Abstract descriptions do not match concrete requests.</li>
+        <li><b>State the negative scope.</b> "Do not use for X, use Y instead." Without it, a broad skill fires on everything and starves the specific ones.</li>
+        <li><b>One skill, one job.</b> Overlapping skills compete and selection becomes a coin flip nobody can debug.</li>
+        <li><b>Deterministic steps, exact commands.</b> The value is repeatability. Prose advice belongs in the memory file.</li>
+        <li><b>Specify the output shape.</b> Name the table, sections or artifact required. Comparable output across runs and people is most of the payoff.</li>
+        <li><b>Keep the body short, link the depth.</b> A tight procedure that references longer files on demand beats one long file loaded every time.</li>
+      </ul>
+    </div>
+    <div class="cardbox">
+      <h3>Operating them as a team</h3>
+      <ul>
+        <li><b>Version controlled and owned</b> like any other source, in the repo where the work happens.</li>
+        <li><b>Test firing and non-firing.</b> Collect real requests that should trigger it and near-misses that should not. Vague descriptions fail silently by never loading.</li>
+        <li><b>Re-test when you add neighbours.</b> A new skill can steal triggers from an existing one.</li>
+        <li><b>Retire deliberately.</b> A skill encoding a process you have replaced is worse than none.</li>
+        <li><b>Sandbox anything with side effects.</b> A skill that runs commands inherits the agent's permissions, so scope it there rather than trusting the text.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="label">The promotion path — how a private trick becomes a standard</div>
+    <div class="flow">
+      <div class="fstep"><div class="fk">1 · Personal</div><div class="fv">One engineer works out a prompt or loop that reliably produces good output.</div></div>
+      <div class="fstep"><div class="fk">2 · Shared command</div><div class="fv">Checked into the repo so anyone can run it. Still optional, still cheap to delete.</div></div>
+      <div class="fstep"><div class="fk">3 · Skill</div><div class="fv">Used often enough to deserve automatic triggering and a defined output shape.</div></div>
+      <div class="fstep"><div class="fk">4 · Memory file</div><div class="fv">True on every task in the repo, not just this one. The most expensive tier — earn it.</div></div>
+    </div>
+    <div class="tail"><b>Run it in that order.</b> Most teams invert it, starting with a large memory file assembled from opinions rather than evidence. Working upward means every line in the most expensive tier got there because it demonstrably changed an outcome, and the promotion step is also the review step.</div>
+  </div>
+
+  <div class="shead"><div class="bar"></div><h2>Adoption checklist</h2><span class="note">Sequential — each row depends on the one above</span></div>
+  <div class="check">
+    <div>Repo memory file exists, under CODEOWNERS, reviewed in PR</div>
+    <div>User-scope template committed, versioned, installed by the dev script</div>
+    <div>Exact build, test and lint commands present and verified current</div>
+    <div>Permission allowlist and denylist defined for unattended commands</div>
+    <div>Do-not-touch list explicit</div>
+    <div>Approved tool and MCP server list maintained, additions reviewed</div>
+    <div>Directory-level files where subsystem norms genuinely differ</div>
+    <div>Skills stored in repo, owned, with trigger and non-trigger cases tested</div>
+    <div>Updating the memory file is part of the definition of done</div>
+    <div>Quarterly prune of memory files and drift audit of local overrides</div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
