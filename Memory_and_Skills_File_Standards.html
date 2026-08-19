@@ -123,7 +123,7 @@
     </div>
   </header>
   <p class="lede">Note - this document assumes Claude.  Other primitives: AGENTS.md (ChatGPT), .cursor/rules/ (Cursor)</p>
-  <div class="shead"><div class="bar"></div><h2>Know which file you are writing</h2><span class="note">Wrong tier is a common failure problem</span></div>
+  <div class="shead"><div class="bar"></div><h2>Tiers of CLAUDE.md files</h2><span class="note">Figuring out where to standardize</span></div>
   <p class="lede">The dividing question is not importance, it is <i>who is this true for</i>. Anything true for everyone who touches the repo belongs in version control. Anything true only about one person's laptop does not.  Be mindful of contradictory statements.</p>
 
   <div class="scope">
@@ -183,7 +183,7 @@
       <h3>Keeping it working</h3>
       <ul>
         <li><b>Directives, not description.</b> Imperative voice, one instruction per line, testable. If you cannot tell whether the agent complied, rewrite it.</li>
-        <li><b>Prune on a schedule.</b> Growth is the default and every stale line degrades the live ones. A line that has never changed an outcome is costing you in attention.</li>
+        <li><b>Prune on a schedule.</b> Document creep is a real thing.  Remember that every statement fights for attention.</li>
         <li><b>Fix in the file, not in the chat.</b> When an agent does the wrong thing, the durable repair is a line in the memory file. Correcting it in conversation fixes it for one person once.</li>
         <li><b>Watch for contradiction.</b> Bloat rarely reads as wrong, it reads as two rules that cannot both hold.</li>
         <li><b>Factor shared fragments.</b> Where a standard spans repos, import a common file rather than copying it. Copies diverge silently.</li>
@@ -248,9 +248,9 @@
       <ul>
         <li><b>Commit a template, not the file.</b> Keep <code>templates/claude-user.md</code> and a settings template in the repo. The install step copies them into user scope. The template is reviewed; the copy is not.</li>
         <li><b>Version the template.</b> Put a version line at the top. A one-line check in CI or the dev script tells people when theirs is behind.</li>
-        <li><b>Bootstrap in one command.</b> Add it to the existing dev setup script. Any standard requiring a wiki page and manual steps reaches roughly half the team.</li>
+        <li><b>Bootstrap in one command.</b> Add it to the existing dev setup script.</li>
         <li><b>Split team settings from personal.</b> Checked-in project settings carry permission rules, hooks and approved tool servers. The gitignored local settings file carries only paths and personal preference.</li>
-        <li><b>Audit for drift quarterly.</b> Ask people to diff their user file against the template. Recurring local overrides are a signal the template is wrong — promote them, do not police them.</li>
+        <li><b>Audit for drift quarterly.</b> Ask people to diff their user file against the template. Recurring local overrides are a signal the template is wrong.</li>
       </ul>
     </div>
     <div class="cardbox">
@@ -258,14 +258,14 @@
       <ul>
         <li>Permission allowlists and denylists for shell commands the agent may run unattended</li>
         <li>Approved tool and MCP server list, with anything reaching production or customer data excluded by default</li>
-        <li>Environment variable names and local service ports — <b>names, never values</b></li>
+        <li>Environment variable names and local service ports: <b>names, never values</b></li>
         <li>Output preferences: verbosity, commit message style, whether to open PRs automatically</li>
         <li>Hooks that run formatters or tests after edits, so every engineer's agent self-checks the same way</li>
       </ul>
       <h3 style="margin-top:9px;">What never does</h3>
       <ul class="no">
         <li>Credentials, tokens or keys in any form, including "temporary" ones</li>
-        <li>Rules about the codebase itself — those belong in the repo file where review can see them</li>
+        <li>Rules about the codebase itself (those belong in the repo file where review can see them)</li>
       </ul>
     </div>
   </div>
@@ -297,7 +297,7 @@
   </div>
 
   <div class="strip">
-    <div class="label">The promotion path — how a private trick becomes a standard</div>
+    <div class="label">The promotion path: how a private trick becomes a standard</div>
     <div class="flow">
       <div class="fstep"><div class="fk">1 · Personal</div><div class="fv">One engineer works out a prompt or loop that reliably produces good output.</div></div>
       <div class="fstep"><div class="fk">2 · Shared command</div><div class="fv">Checked into the repo so anyone can run it. Still optional, still cheap to delete.</div></div>
