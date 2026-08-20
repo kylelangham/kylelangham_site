@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequent Governance/Compliance Questions</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+    --stop:#B23B00; --stop-soft:#FCEEE7; --stop-line:#F0C9B5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.5in 0.62in 0.42in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:12px;}
+  .eyebrow{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:7px;}
+  .title{font-size:25px;line-height:1.08;font-weight:700;letter-spacing:-.02em;}
+  .sub{font-size:11px;color:var(--muted);margin-top:6px;max-width:5.2in;}
+  .meta{text-align:right;font-size:9.5px;color:var(--muted);line-height:1.75;padding-top:3px;white-space:nowrap;}
+  .meta b{color:var(--ink-2);font-weight:600;}
+
+  .snap{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);}
+  .snap .c{padding:11px 14px 11px 0;}
+  .snap .c + .c{padding-left:16px;border-left:1px solid var(--line);}
+  .snap .k{font-size:8.8px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+  .snap .v{font-size:12.5px;font-weight:650;letter-spacing:-.012em;line-height:1.28;}
+  .snap .v small{font-weight:400;color:var(--muted);font-size:10px;display:block;margin-top:2px;}
+
+  h2{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:16px 0 8px;}
+  h2:first-of-type{margin-top:14px;}
+  p{font-size:11.4px;color:var(--ink-2);line-height:1.58;}
+  p + p{margin-top:7px;}
+  ul{list-style:none;margin-top:6px;}
+  li{font-size:11.3px;color:var(--ink-2);line-height:1.5;padding-left:14px;position:relative;margin-bottom:5px;}
+  li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--accent);}
+
+  .scope{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+  .scope .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px;}
+  .scope .bh{font-size:10.5px;font-weight:650;letter-spacing:-.005em;margin-bottom:7px;}
+  .scope .in .bh{color:var(--accent);}
+  .scope .out .bh{color:var(--stop);}
+  .scope .out li::before{background:var(--stop);}
+  .scope li{font-size:10.6px;margin-bottom:4px;line-height:1.45;}
+
+  /* governance ledger */
+  .ledger{border-top:1px solid var(--line);margin-top:8px;}
+  .row{display:grid;grid-template-columns:1.05fr 1.95fr;gap:22px;padding:11px 0;border-bottom:1px solid var(--line-2);}
+  .row .q{font-size:11.2px;font-weight:650;color:var(--ink);letter-spacing:-.005em;line-height:1.4;}
+  .row .q .who{display:block;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+  .row .a{font-size:10.9px;color:var(--ink-2);line-height:1.55;}
+
+  .kill{background:var(--stop-soft);border:1px solid var(--stop-line);border-radius:12px;padding:13px 16px;margin-top:10px;}
+  .kill .kh{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--stop);font-weight:600;margin-bottom:7px;}
+  .kill p{font-size:10.9px;color:#7A4A30;line-height:1.55;}
+  .kill li{font-size:10.7px;color:#7A4A30;margin-bottom:4px;}
+  .kill li::before{background:var(--stop);}
+
+  .ask{background:var(--ink);color:#fff;border-radius:14px;padding:15px 20px;margin-top:12px;}
+  .ask .ah{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:7px;}
+  .ask p{font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.55;}
+  .ask b{color:#fff;font-weight:650;}
+
+  .spacer{flex:1;}
+  .foot{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .logo .mark{width:25px;height:25px;flex:none;}
+  .logo .wm .n{font-size:14px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+  .contact{display:flex;gap:16px;font-size:9.8px;color:var(--muted);align-items:center;}
+  .contact a{color:var(--ink-2);text-decoration:none;}
+  .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+  .pnum{font-size:9px;color:var(--muted);letter-spacing:.06em;}
+
+  @page{size:Letter;margin:0;}
+  @media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;page-break-after:always;} }
+</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3P5TR9ZTBE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3P5TR9ZTBE');
+</script>
+<body>
+
+
+
+<!-- ============ PAGE 1 ============ -->
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow"></div>
+      <h1 class="title">Frequent Compliance/Governance Questions</h1>
+      <div class="sub">Frequently Asked Questions regarding project delivery governance and compliance.</div>
+    </div>
+  </header>
+
+  <div class="ledger">
+
+    <div class="row">
+      <div class="q">How does an agentic system ensure privacy and confidentiality?<span class="who">Privacy / Confidentiality</span></div>
+      <div class="a">Robust data controls are enforced at the data ingestion layer.  An agentic system should not be able to access PII, trade secrets or confidential data, as identified by the client. </div>
+    </div>
+
+    <div class="row">
+      <div class="q">What can be validated?<span class="who">QUALITY / COMPLIANCE</span></div>
+      <div class="a">Much of an agentic system can be validated, typically including data ingestion, transformation, semantics, evaluation, and verification.  Ultimately, the LLM part of the system can not be validated and as such any output from an agentic system will require proceduralized human review and approval for GxP operations.</div>
+    </div>
+
+    <div class="row">
+      <div class="q">Are Part 11 records or data integrity controls affected?<span class="who">Quality / Compliance</span></div>
+      <div class="a">No records are created, altered, or deleted in any system of record, ever. Access is read-only throughout. ALCOA+ posture is unchanged by this work.</div>
+    </div>
+
+    <div class="row">
+      <div class="q">Where does our data go, and does it leave our control?<span class="who">IT Security</span></div>
+      <div class="a">Default position is that no proprietary, PII or confidential data leaves client systems (see privacy / confidential data). Any data that an agentic system can access is assumed to be available for the client's choosen LLM model and subject to those Terms of Service.</div>
+    </div>
+
+    <div class="row">
+      <div class="q">What happens when an AI output is wrong?<span class="who">Quality / IT</span></div>
+      <div class="a">Best practices calls for evaluation and verification scripts for every agentic AI output.  However, human oversight, review and approval is needed for any quality output from an agentic system.</div>
+    </div>
+
+    <div class="row">
+      <div class="q">Who owns this after the vendor leaves?<span class="who">IT</span></div>
+      <div class="a">For any  build, ownership, support model, and internal skill transfer get defined before the build starts rather than after. If we cannot name an internal owner at that point, that is a reason not to build. Vendor support will be available per agreement.</div>
+    </div>
+
+    <div class="row">
+      <div class="q">Does this lock us into a vendor or a platform?<span class="who">IT / Procurement</span></div>
+      <div class="a">Good agentic systems should be vendor-neutral, built with transferable primitives.  However, some data systems may require additional licensing at the client's expense.</div>
+    </div>
+
+  </div>
+
+  
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a><span class="dot"></span>
+      <span class="pnum">Page 1 of 1</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
