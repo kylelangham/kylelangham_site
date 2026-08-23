@@ -1,4 +1,5 @@
 {"rewrites": [
   { "source": "/notre-dame-boards", "destination": "https://nd-trends.vercel.app/" },
+  { "source": "/notre-dame-boards/", "destination": "https://nd-trends.vercel.app/" },
   { "source": "/notre-dame-boards/:path*", "destination": "https://nd-trends.vercel.app/:path*" }
 ]}
