@@ -2,6 +2,6 @@
   { "source": "/notre-dame-boards", "destination": "https://nd-trends.vercel.app/" },
   { "source": "/notre-dame-boards/", "destination": "https://nd-trends.vercel.app/" },
   { "source": "/notre-dame-boards/:path*", "destination": "https://nd-trends.vercel.app/:path*" },
-  { "source": "/shoota", "destination": "https://shoota.vercel.app/" },
+  { "source": "/shoota", "destination": "https://shoota-blue.vercel.app/" },
 { "source": "/shoota/:path*", "destination": "https://shoota-blue.vercel.app/:path*" }
 ]}
