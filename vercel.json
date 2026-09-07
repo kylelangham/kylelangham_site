@@ -5,5 +5,6 @@
   { "source": "/shoota", "destination": "https://shoota-blue.vercel.app/" },
   { "source": "/shoota/:path*", "destination": "https://shoota-blue.vercel.app/:path*" },
   { "source": "/notre-dame-pickem", "destination": "https://notre-dame-pickem.vercel.app/notre-dame-pickem" },
+  { "source": "/notre-dame-pickem/", "destination": "https://notre-dame-pickem.vercel.app/notre-dame-pickem" },
   { "source": "/notre-dame-pickem/:path*", "destination": "https://notre-dame-pickem.vercel.app/notre-dame-pickem/:path*" }
 ]}
