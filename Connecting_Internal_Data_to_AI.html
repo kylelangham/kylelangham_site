@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connecting Internal Data to AI — Kyle Langham Consulting</title>
+<style>
+  :root{
+    --ink:#1D1D1F; --ink-2:#3A3A3C; --muted:#6E6E73;
+    --line:#E3E3E6; --line-2:#EFEFF1;
+    --canvas:#FBFBFD; --card:#FFFFFF;
+    --accent:#0A6CFF; --accent-soft:#EDF3FF;
+    --flag:#B23B00; --flag-soft:#FCEEE7; --flag-line:#F0C9B5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E9ED;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Inter",Arial,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  .page{
+    width:8.5in;min-height:11in;margin:24px auto;background:var(--canvas);
+    padding:0.48in 0.62in 0.42in;display:flex;flex-direction:column;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px;}
+  .title{font-size:27px;line-height:1.06;font-weight:700;letter-spacing:-.022em;}
+  .title small{display:block;font-size:11.5px;font-weight:400;color:var(--muted);letter-spacing:0;margin-top:7px;}
+  .logo{display:flex;align-items:center;gap:9px;white-space:nowrap;padding-top:4px;}
+  .logo .mark{width:27px;height:27px;flex:none;}
+  .logo .wm .n{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+  .logo .wm .t{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+  /* section headings */
+  .shead{display:flex;align-items:baseline;gap:11px;margin:12px 0 7px;}
+  .shead .bar{width:3px;height:15px;background:var(--accent);border-radius:2px;flex:none;position:relative;top:2px;}
+  .shead h2{font-size:15px;font-weight:700;letter-spacing:-.015em;}
+  .shead .note{font-size:10.4px;color:var(--muted);}
+  .lede{font-size:11.3px;color:var(--ink-2);line-height:1.55;}
+  .lede b{color:var(--ink);font-weight:650;}
+
+  /* layer strip */
+  .scope{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px;}
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 11px 10px;}
+  .sc .tier{font-size:8.4px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:4px;}
+  .sc h4{font-size:11.2px;font-weight:650;letter-spacing:-.01em;line-height:1.2;margin-bottom:4px;}
+  .sc .d{font-size:9.8px;color:var(--ink-2);line-height:1.4;}
+  .sc .vc{font-size:9.2px;color:var(--muted);margin-top:6px;}
+  .sc .vc b{color:var(--ink-2);font-weight:600;}
+
+  /* build table */
+  .bhead{display:grid;grid-template-columns:24px 1.85fr 1fr;gap:14px;padding:0 14px 4px;}
+  .bhead span{font-size:8.4px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .brow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px 10px;
+        display:grid;grid-template-columns:24px 1.85fr 1fr;gap:14px;align-items:start;margin-bottom:6px;}
+  .brow .n{width:22px;height:22px;border-radius:7px;background:var(--accent-soft);color:var(--accent);
+           font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .brow h4{font-size:11.4px;font-weight:650;letter-spacing:-.01em;margin-bottom:3px;line-height:1.2;}
+  .brow .d,.brow .m{font-size:9.9px;color:var(--ink-2);line-height:1.44;}
+  .brow .d i{color:var(--muted);font-style:normal;}
+
+  /* two-col cards */
+  .cols{display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:9px;}
+  .cardbox{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:11px 14px;}
+  .cardbox.neg{background:#F7F7F9;}
+  .cardbox h3{font-size:12.2px;font-weight:650;letter-spacing:-.012em;margin-bottom:7px;}
+  .cardbox h3 span{font-weight:400;color:var(--muted);font-size:10px;}
+  ul{list-style:none;}
+  li{font-size:10.3px;color:var(--ink-2);line-height:1.45;padding-left:12px;position:relative;margin-bottom:5px;}
+  li:last-child{margin-bottom:0;}
+  li::before{content:"";position:absolute;left:0;top:6.2px;width:4px;height:4px;border-radius:50%;background:var(--accent);}
+  li b{font-weight:650;color:var(--ink);}
+  .no li::before{background:#C8CBD2;}
+
+  /* prompt lines */
+  .pr{margin-bottom:7px;}
+  .pr:last-child{margin-bottom:0;}
+  .pr .pk{font-size:8.6px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:2px;}
+  .pr .pv{font-size:9.9px;color:var(--ink-2);line-height:1.45;border-left:2px solid var(--line);padding-left:8px;}
+
+  /* dark strip */
+  .strip{margin-top:10px;background:var(--ink);color:#fff;border-radius:14px;padding:12px 17px;}
+  .strip .label{font-size:9.6px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:8px;}
+  .flow{display:flex;align-items:stretch;gap:0;}
+  .fstep{flex:1;padding-right:13px;}
+  .fstep + .fstep{padding-left:13px;border-left:1px solid rgba(255,255,255,.14);}
+  .fstep .fk{font-size:10.8px;font-weight:650;letter-spacing:-.005em;margin-bottom:3px;}
+  .fstep .fv{font-size:9.5px;color:rgba(255,255,255,.72);line-height:1.38;}
+  .strip .tail{font-size:9.9px;color:rgba(255,255,255,.72);margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.14);line-height:1.45;}
+  .strip .tail b{color:#fff;font-weight:600;}
+
+  /* footer */
+  .spacer{flex:1;}
+  .foot{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .foot .contact{display:flex;gap:18px;font-size:10.2px;color:var(--muted);align-items:center;}
+  .foot .contact a{color:var(--ink-2);text-decoration:none;}
+  .foot .contact .dot{width:3px;height:3px;border-radius:50%;background:var(--line);}
+
+  @page{size:Letter;margin:0;}
+  @media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;} }
+</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3P5TR9ZTBE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3P5TR9ZTBE');
+</script>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Quick Start</div>
+      <h1 class="title">Connecting Internal Data to AI
+        <small>Getting one real question answered from your own data, end to end, in an afternoon</small>
+      </h1>
+    </div>
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+  </header>
+
+  <p class="lede" style="margin-top:11px;">The key architectural concept is the model doesn't touch the data sources. Instead, you give the model access to tools, which can run bounded queries, and the result comes back as text and context for the model. <b>What follows is a quick start, not the comprehensive version.</b></p>
+
+  <div class="scope">
+    <div class="sc">
+      <div class="tier">Layer 1</div>
+      <h4>Source and transformation</h4>
+      <div class="d">BigQuery, dbt, Python, API... <br>Extract and model the data so column names and descriptions carry meaning.</div>
+      <div class="vc"><b>Fails as:</b> unreadable schema</div>
+    </div>
+    <div class="sc">
+      <div class="tier">Layer 2</div>
+      <h4>Curated semantic layer</h4>
+      <div class="d">A narrow set of documented views the AI is allowed to see, with each metric defined exactly once.</div>
+      <div class="vc"><b>Fails as:</b> confident wrong numbers</div>
+    </div>
+    <div class="sc">
+      <div class="tier">Layer 3</div>
+      <h4>MCP server or connector</h4>
+      <div class="d">Read-only, scoped, limit-bound access exposed as tools. This layer connects the AI model to the extraction layer.</div>
+      <div class="vc"><b>Fails as:</b> cost and exposure</div>
+    </div>
+    <div class="sc">
+      <div class="tier">Layer 4</div>
+      <h4>Skill</h4>
+      <div class="d">Instructions covering how the work should be executed and how the output should be given.</div>
+      <div class="vc"><b>Fails as:</b> inconsistent answers</div>
+    </div>
+  </div>
+
+  <div class="shead"><div class="bar"></div><h2>The build</h2><span class="note">(AI writes most of the code... see example prompts below)</span></div>
+
+  <div class="bhead"><span></span><span>What you do</span><span>Done when</span></div>
+
+  <div class="brow">
+    <div class="n">1</div>
+    <div><h4>Pick the question and manually find the data</h4><div class="d">You need a number you can check against, otherwise you have no way to tell whether any of this worked. Note the tables it comes from and record the answer you expect.</div></div>
+    <div class="m">You have a question, a source, and an expected answer.</div>
+  </div>
+
+  <div class="brow">
+    <div class="n">2</div>
+    <div><h4>Get to a working query</h4><div class="d">Paste the schema and column descriptions into the AI and have it write the query. Then read what it assumed about dates, filters and exclusions (it won't always flag it). <i>If the data isn't already sitting somewhere queryable, this is where you write the Python extraction instead.</i></div></div>
+    <div class="m">Running it by hand gives you the number from step one.</div>
+  </div>
+
+  <div class="brow">
+    <div class="n">3</div>
+    <div><h4>Wrap it as a local MCP server</h4><div class="d">Give the AI your working query plus a plain description of what this data does and doesn't cover, and ask for a local server that exposes it as a tool. </div></div>
+    <div class="m">The model answers your question through the tool, with no data pasted into the chat.</div>
+  </div>
+
+  <div class="brow">
+    <div class="n">4</div>
+    <div><h4>Write a skill around a routine</h4><div class="d">Pick something you do over and over, like a weekly report or a recurring check. The skill covers when it fires, which tool it calls, which definitions apply, and what has to appear in the answer. Have the AI draft it, then edit it.</div></div>
+    <div class="m">You ask in your own words on two different days and get the same number and the same query.</div>
+  </div>
+
+  <div class="brow">
+    <div class="n">5</div>
+    <div><h4>Try to break it</h4><div class="d">Ask five more questions you already know the answers to. Then ask some the data can't support to see if the model will guess confidently or return that no data is found.</div></div>
+    <div class="m">The checkable answers are right, and the unanswerable ones come back as a no.</div>
+  </div>
+
+  <div class="cols">
+    <div class="cardbox">
+      <h3>What to ask for <span>— paste these, fill in the brackets</span></h3>
+      <div class="pr">
+        <div class="pk">Step 2 · the query</div>
+        <div class="pv">Here's the schema and the column descriptions. Write a query that answers [question]. Before the code, list every assumption you made about dates, filters and what to exclude, so I can tell you what you got wrong.</div>
+      </div>
+      <div class="pr">
+        <div class="pk">Step 2 · extraction, if you need it</div>
+        <div class="pv">Write a Python function that connects to [source], runs this query and returns the result. Pull credentials from environment variables. Don't put them in the code.</div>
+      </div>
+      <div class="pr">
+        <div class="pk">Step 3 · the server</div>
+        <div class="pv">Here's my working function. Wrap it in a local MCP server with one read-only tool. In the tool description, say what subject it covers, what date range it has, and what it can't answer.</div>
+      </div>
+      <div class="pr">
+        <div class="pk">Step 4 · the skill</div>
+        <div class="pv">Write a skill for [routine] that uses this tool. Every answer needs the number, the query behind it, and the row count. If the data can't answer, it should say so instead of estimating.</div>
+      </div>
+    </div>
+    <div class="cardbox neg">
+      <h3>Keep out, even on day one</h3>
+      <ul class="no">
+        <li><b>Credentials in code.</b> Environment variables from the start. The AI will hardcode them if you don't tell it not to.</li>
+        <li><b>Write access.</b> Read-only account. Nothing in this path should be able to change anything.</li>
+        <li><b>PII.</b> If it's in the table, strip it in the query before the tool ever sees it.</li>
+        <li><b>Other people using it.</b> The server runs on your machine with your access. Once a second person needs it, you're building the real version.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="label">Considerations when you need to scale this approach</div>
+    <div class="flow">
+      <div class="fstep"><div class="fk">Agree the definitions</div><div class="fv">Get the metric logic written down and signed off by whoever owns the number... once it's automated, changing it is a project.</div></div>
+      <div class="fstep"><div class="fk">Curated views, not a tool per question</div><div class="fv">A documented view layer lets one tool cover many questions.</div></div>
+      <div class="fstep"><div class="fk">Host it and scope it</div><div class="fv">Move off your laptop to a shared server with its own read-only account, byte and row caps, and query logs.</div></div>
+      <div class="fstep"><div class="fk">Keep a standing eval</div><div class="fv">Known answers you re-run whenever a schema or a skill changes, so a silent break or drift shows up in your test.</div></div>
+    </div>
+    <div class="tail"><b>The trigger is usually a second person wanting access, not a technical limit.</b> That's the point to stop extending the prototype and scope the real build, because everything above needs an owner and a budget rather than an afternoon.</div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <footer class="foot">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="7" cy="9" r="2.4" fill="#0A6CFF"/><circle cx="7" cy="23" r="2.4" fill="#1D1D1F"/>
+        <circle cx="22" cy="16" r="2.4" fill="#1D1D1F"/><circle cx="25" cy="6" r="1.7" fill="#0A6CFF"/>
+        <path d="M7 9 L22 16 M7 23 L22 16 M22 16 L25 6" stroke="#C9CDD4" stroke-width="1.3"/>
+      </svg>
+      <div class="wm"><div class="n">Kyle Langham</div><div class="t">Consulting</div></div>
+    </div>
+    <div class="contact">
+      <a href="mailto:kyle@kylelangham.com">kyle@kylelangham.com</a><span class="dot"></span>
+      <a href="https://kylelangham.com">kylelangham.com</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
