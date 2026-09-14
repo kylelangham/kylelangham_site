@@ -8,7 +8,9 @@
     { "source": "/notre-dame-pickem", "destination": "https://notre-dame-pickem.vercel.app/notre-dame-pickem" },
     { "source": "/notre-dame-pickem/:path*", "destination": "https://notre-dame-pickem.vercel.app/notre-dame-pickem/:path*" },
     { "source": "/corey_tracker", "destination": "https://corey-tracker.vercel.app/corey_tracker" },
-    { "source": "/corey_tracker/:path*", "destination": "https://corey-tracker.vercel.app/corey_tracker/:path*" }
+    { "source": "/corey_tracker/:path*", "destination": "https://corey-tracker.vercel.app/corey_tracker/:path*" },
+    { "source": "/corey-tracker", "destination": "https://corey-tracker.vercel.app/corey_tracker" },
+    { "source": "/corey-tracker/:path*", "destination": "https://corey-tracker.vercel.app/corey_tracker/:path*" }
   ]
 }
 
