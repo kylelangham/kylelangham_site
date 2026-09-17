@@ -10,7 +10,11 @@
     { "source": "/corey_tracker", "destination": "https://corey-tracker.vercel.app/corey_tracker" },
     { "source": "/corey_tracker/:path*", "destination": "https://corey-tracker.vercel.app/corey_tracker/:path*" },
     { "source": "/corey-tracker", "destination": "https://corey-tracker.vercel.app/corey_tracker" },
-    { "source": "/corey-tracker/:path*", "destination": "https://corey-tracker.vercel.app/corey_tracker/:path*" }
+    { "source": "/corey-tracker/:path*", "destination": "https://corey-tracker.vercel.app/corey_tracker/:path*" },
+    { "source": "/OCC_26_Pong", "destination": "https://occ-26-pong.vercel.app/" },
+    { "source": "/OCC_26_Pong/:path*", "destination": "https://occ-26-pong.vercel.app/:path*" },
+    { "source": "/occ_26_pong", "destination": "https://occ-26-pong.vercel.app/" },
+    { "source": "/occ_26_pong/:path*", "destination": "https://occ-26-pong.vercel.app/:path*" }
   ]
 }
 
